@@ -281,9 +281,9 @@
     font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
     padding: 8px 14px; border: 1px solid;
   }
-  .rg-do-now    { color: #bb7777; border-color: #553333; background: rgba(153,85,85,0.06); }
-  .rg-do-next   { color: #aa9966; border-color: #554422; background: rgba(153,136,85,0.06); }
-  .rg-do-later  { color: #8899aa; border-color: #334455; background: rgba(85,102,136,0.06); }
+  .rg-critical  { color: #bb7777; border-color: #553333; background: rgba(153,85,85,0.06); }
+  .rg-significant { color: #aa9966; border-color: #554422; background: rgba(153,136,85,0.06); }
+  .rg-elevated  { color: #8899aa; border-color: #334455; background: rgba(85,102,136,0.06); }
   .rg-monitor   { color: #668866; border-color: #334433; background: rgba(85,119,85,0.06); }
   .roadmap-item {
     background: var(--dark2); border: 1px solid #1a1a1a;
@@ -344,10 +344,9 @@
     </svg>
   </div>
   <div class="header-text">
-    <div class="header-firm">Nomad S.I.G. — Security | Intelligence |
-     Geopolitics</div>
+    <div class="header-firm">Nomad S.I.G. — Security | Intelligence | Geopolitics</div>
     <div class="header-title">Japan SDA Development</div>
-    <div class="header-subtitle">5-Year Capability & Threat Environment Assessment · MON-02</div>
+    <div class="header-subtitle">5-Year Capability &amp; Threat Environment Assessment · MON-02</div>
   </div>
   <div class="header-meta">
     <div class="date">MAY 2026</div>
@@ -368,16 +367,12 @@
 
 <div class="content">
 
-<!-- ════════════════════════════════ -->
-<!-- TAB 1 · SIGNAL REGISTER         -->
-<!-- ════════════════════════════════ -->
+<!-- TAB 1 · SIGNAL REGISTER -->
 <div id="signals" class="section active">
   <div class="section-header">
     <div class="section-title">Signal Register</div>
     <div class="section-iq">15 signals · Scored by Impact × Likelihood × Novelty · Sourced from OSINT, April 2026</div>
   </div>
-
-  <!-- category summary chips -->
   <div class="sub-divider">Category Distribution</div>
   <div class="four-col" style="margin-bottom:24px;">
     <div class="card">
@@ -401,39 +396,31 @@
       <div class="card-body">Avg score <strong style="color:var(--silver-bright);">17.3</strong></div>
     </div>
   </div>
-
   <div class="sub-divider">All Signals — Ranked by Composite Score</div>
   <div class="signal-list" id="signalList"></div>
 </div>
 
-<!-- ════════════════════════════════ -->
-<!-- TAB 2 · PRIORITY RANKING        -->
-<!-- ════════════════════════════════ -->
+<!-- TAB 2 · PRIORITY RANKING -->
 <div id="priority" class="section">
   <div class="section-header">
     <div class="section-title">Signal Priority Ranking</div>
     <div class="section-iq">Composite scores · Impact × Likelihood × Novelty · Priority classification</div>
   </div>
-
   <div class="sub-divider">Score Distribution Chart</div>
   <div class="chart-wrap">
     <div class="chart-title">Composite Score by Signal — Ordered by Priority</div>
     <div style="height:360px;"><canvas id="scoreChart"></canvas></div>
   </div>
-
   <div class="sub-divider" style="margin-top:28px;">Score Table</div>
   <div class="score-bar-list" id="scoreBarList"></div>
 </div>
 
-<!-- ════════════════════════════════ -->
-<!-- TAB 3 · THREAT ENVIRONMENT      -->
-<!-- ════════════════════════════════ -->
+<!-- TAB 3 · THREAT ENVIRONMENT -->
 <div id="threats" class="section">
   <div class="section-header">
     <div class="section-title">Threat Environment</div>
     <div class="section-iq">5 threat actors · Scored by Capability × Intent = Risk · April 2026</div>
   </div>
-
   <div class="sub-divider">Risk Overview</div>
   <div class="three-col">
     <div class="card" style="border-left:2px solid #774444;">
@@ -452,10 +439,8 @@
       <div class="card-body">PLA EW — Cap 9 × Intent 7</div>
     </div>
   </div>
-
   <div class="sub-divider" style="margin-top:28px;">Threat Actor Profiles</div>
   <div id="threatList"></div>
-
   <div class="sub-divider" style="margin-top:28px;">Capability vs. Intent Matrix</div>
   <div class="chart-wrap">
     <div class="chart-title">Threat Actor Scatter — Capability (X) vs. Intent (Y) · Bubble = Risk Score</div>
@@ -463,26 +448,19 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════ -->
-<!-- TAB 4 · THREAT MAP              -->
-<!-- ════════════════════════════════ -->
+<!-- TAB 4 · THREAT MAP -->
 <div id="threatmap" class="section">
   <div class="section-header">
     <div class="section-title">Threat Map</div>
     <div class="section-iq">Capability × Intent quadrant · Critical / Elevated / Potential / Low</div>
   </div>
-
   <div class="sub-divider">Quadrant Overview</div>
   <p style="font-size:12px; color:var(--silver-dark); margin-bottom:20px; line-height:1.7;">
     Each threat actor is plotted by assessed Capability (horizontal) and Intent (vertical). Risk score = Capability × Intent.
     Quadrant assignment reflects the April 2026 assessment baseline.
   </p>
-
   <div class="threat-map-grid">
-    <!-- Y-axis label -->
     <div class="tm-axis-label" style="grid-row:1/3; grid-column:1;">Intent →</div>
-
-    <!-- Quadrant: High Cap + High Intent (Critical) -->
     <div class="tm-cell critical-cell" style="grid-row:1; grid-column:2;">
       <div class="tm-cell-header">Critical — High Capability + High Intent</div>
       <div class="tm-actor">
@@ -501,8 +479,6 @@
         <div class="tm-actor-score">Cap 6 · Intent 6 · Risk 36</div>
       </div>
     </div>
-
-    <!-- Quadrant: Low Cap + High Intent (Elevated) -->
     <div class="tm-cell elevated-cell" style="grid-row:1; grid-column:3;">
       <div class="tm-cell-header">Elevated — Low Capability + High Intent</div>
       <div class="tm-actor">
@@ -511,14 +487,10 @@
         <div class="tm-actor-score">Cap 1 · Intent 8 · Risk 8</div>
       </div>
     </div>
-
-    <!-- Quadrant: High Cap + Low Intent (Potential) -->
     <div class="tm-cell empty-cell" style="grid-row:2; grid-column:2;">
       <div class="tm-cell-header" style="color:#334455;">Potential — High Capability + Low Intent</div>
       <div style="font-size:11px; color:#252525; padding-top:8px; font-style:italic;">No actors currently assessed in this quadrant</div>
     </div>
-
-    <!-- Quadrant: Low Cap + Low Intent (Low) -->
     <div class="tm-cell" style="grid-row:2; grid-column:3; background:#080808;">
       <div class="tm-cell-header" style="color:#333;">Elevated — Assessed Threshold Actor</div>
       <div class="tm-actor">
@@ -527,23 +499,15 @@
         <div class="tm-actor-score">Cap 5 · Intent 6 · Risk 30</div>
       </div>
     </div>
-
-    <!-- X-axis labels -->
     <div style="grid-row:3; grid-column:1;"></div>
     <div class="tm-x-label" style="grid-row:3; grid-column:2;">← High Capability</div>
     <div class="tm-x-label" style="grid-row:3; grid-column:3;">Low Capability →</div>
   </div>
-
   <div class="sub-divider" style="margin-top:28px;">Actor Risk Summary Table</div>
   <table class="data-table">
     <thead>
       <tr>
-        <th>#</th>
-        <th>Threat Actor</th>
-        <th>Capability</th>
-        <th>Intent</th>
-        <th>Risk Score</th>
-        <th>Quadrant</th>
+        <th>#</th><th>Threat Actor</th><th>Capability</th><th>Intent</th><th>Risk Score</th><th>Quadrant</th>
       </tr>
     </thead>
     <tbody>
@@ -586,15 +550,12 @@
   </table>
 </div>
 
-<!-- ════════════════════════════════ -->
-<!-- TAB 5 · ACTION ROADMAP          -->
-<!-- ════════════════════════════════ -->
+<!-- TAB 5 · ACTION ROADMAP -->
 <div id="roadmap" class="section">
   <div class="section-header">
     <div class="section-title">Action Roadmap</div>
     <div class="section-iq">Priority-classified signals · Decision-maker action framework · Near-to-medium horizon</div>
   </div>
-
   <div class="sub-divider">Roadmap Overview</div>
   <div class="four-col" style="margin-bottom:24px;">
     <div class="card" style="border-left:2px solid #774444;">
@@ -608,7 +569,7 @@
       <div class="card-body" style="font-size:11px;">Near-term action within planning cycle</div>
     </div>
     <div class="card" style="border-left:2px solid #445566;">
-      <div class="card-label" style="color:#8899aa;">Contributing</div>
+      <div class="card-label" style="color:#8899aa;">Elevated</div>
       <div class="card-title" style="font-size:22px;">4</div>
       <div class="card-body" style="font-size:11px;">Medium-term monitoring and preparation</div>
     </div>
@@ -618,7 +579,6 @@
       <div class="card-body" style="font-size:11px;">Watch list — emerging or background signals</div>
     </div>
   </div>
-
   <div class="sub-divider">Full Roadmap</div>
   <div id="roadmapList"></div>
 </div>
@@ -633,101 +593,88 @@
 </div>
 
 <script>
-/* ── TAB NAV ── */
+/* ================================================================
+   TAB NAV — lazy chart init on first visit
+================================================================ */
+const chartInited = { priority: false, threats: false };
+
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   const tabs = ['signals','priority','threats','threatmap','roadmap'];
   document.querySelectorAll('.nav-tab')[tabs.indexOf(id)].classList.add('active');
+
+  // lazy-init charts when their tab first becomes visible
+  if (id === 'priority' && !chartInited.priority) {
+    buildScoreChart();
+    chartInited.priority = true;
+  }
+  if (id === 'threats' && !chartInited.threats) {
+    buildThreatChart();
+    chartInited.threats = true;
+  }
 }
 
-/* ── DATA: SIGNALS ── */
+/* ================================================================
+   DATA: SIGNALS
+================================================================ */
 const SIGNALS = [
-  { num:1,  cat:'Political',     type:'confirmed-change', title:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", desc:"On 28 July 2025, Japan's MoD released its Space Domain Defense Guidelines — its first such document — explicitly stating intent to disrupt adversary C2 and framing space as a warfighting domain. Defense Minister Nakatani cited 'killer satellites' from China and Russia as direct threats. This represents a structural policy break from Japan's 1969 Diet resolution restricting military space use.", imp:5, lik:5, nov:4, horizon:'Near',  evidence:'Confirmed', score:29, priority:'DO NOW',   impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
-  { num:2,  cat:'Economic',      type:'confirmed-change', title:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid counterspace capability expansion through 2031", desc:"Japan's space defense budget, reported by The Mainichi and confirmed in FY2026 budget (Dec 2025), represents a tenfold increase over 2020 levels. The broader plan allocates JPY 8.81T (~$56B) across defense, with space among the fastest-growing investment areas, driven by the Defense Buildup Program targeting 2% of GDP by 2027.", imp:5, lik:5, nov:3, horizon:'Near',  evidence:'Confirmed', score:28, priority:'DO NOW',   impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
-  { num:3,  cat:'Political',     type:'confirmed-change', title:"JASDF restructures into Air and Space SDF; Space Operations Command planned for 2026, integrating counter-satellite operations as a core mission", desc:"Japan's Defense Ministry confirmed in late 2025 plans to restructure the JASDF into an Air and Space Self-Defense Force and establish a Space Operations Command in 2026. The Command will integrate space reconnaissance, counter-satellite operations, navigation, and missile early warning into a unified space combat system.", imp:5, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:23, priority:'DO NEXT',  impl:"Clear definitive objectification of space as a priority strategic domain existing independently of US alliance" },
-  { num:4,  cat:'Technological', type:'weak-signal',      title:"SWF 2026 documents major cyberattacks against ESA and unencrypted GEO satellites — Japan's nascent space architecture is structurally ill-prepared to absorb the threat", desc:"The SWF 2026 Global Counterspace Report documented ESA system breaches and unencrypted GEO satellites. CSIS (Sep 2024) assessed Japan's space cybersecurity as 'limited' with no security clearance system for ally sharing. JAXA suffered a confirmed Active Directory compromise; MoD guidelines expanded to include cyber but JSDF 'does not have the expertise to protect satellite systems.'", imp:4, lik:5, nov:3, horizon:'Near',  evidence:'Substantiated', score:23, priority:'DO NEXT',  impl:"Confirms near-term relevance and demands immediate consideration" },
-  { num:5,  cat:'Technological', type:'confirmed-change', title:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — providing indigenous real-time space object tracking underpinning all future counterspace operations", desc:"Multiple sources confirm Japan's first dedicated SDA satellite — developed jointly by JSDF and JAXA — is on track for FY2026 launch. This capability represents the essential enabling layer for any counterspace operation, allowing Japan to detect, track, and characterize threatening on-orbit behavior including the Chinese and Russian proximity operations cited in the July 2025 Guidelines.", imp:5, lik:4, nov:2, horizon:'Near',  evidence:'Substantiated', score:22, priority:'DO LATER', impl:"Confirms near-term relevance and demands immediate consideration" },
-  { num:6,  cat:'Economic',      type:'trend',            title:"MoD Private Finance Initiative (PFI) model — via Mitsubishi Electric, Synspective, Axelspace — is building a dual-use commercial-military space industrial base with latent counterspace potential", desc:"In February 2026, Axelspace signed a contract with Japan's MoD PFI consortium to serve as sole optical imagery provider for the defense ISR satellite constellation. The PFI structure mirrors the US Space Development Agency's proliferated architecture and will generate surveillance and targeting data pipelines that may exceed Japan's declared non-destructive counterspace policy.", imp:4, lik:4, nov:4, horizon:'Medium', evidence:'Substantiated', score:20, priority:'MONITOR',  impl:"Suggests private sector involvement as a possible consideration" },
-  { num:7,  cat:'Legal',         type:'emerging-issue',   title:"Space Activities Act amendment (2026) coinciding with Trump's 'Ensuring American Space Superiority' EO creates structural pathway toward more offensive Japanese counterspace authority", desc:"Japan's Space Activities Act amendment — scheduled for 2026 — will formally accommodate military satellite operations. This occurs in parallel with Trump's Dec 2025 executive order emphasising US offensive space operations. USSF-J at Yokota is institutionalising coordination with Japan's Space Operations Group, creating structural pressure for Japan to align its legal framework with a more offensively-oriented posture.", imp:4, lik:4, nov:4, horizon:'Near',  evidence:'Substantiated', score:20, priority:'MONITOR',  impl:"Confirms near-term relevance and demands immediate consideration" },
-  { num:8,  cat:'Threats',       type:'emerging-issue',   title:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are directly cited by Japan as justification for accelerating counterspace development", desc:"The SWF 2026 report flagged China's likely on-orbit refueling experiments (H2 2025) and a potential new DA-ASAT interceptor. Japan's July 2025 Space Domain Defense Guidelines explicitly cited Chinese and Russian RPO behavior as evidence of 'killer satellite' development — the primary threat driver for Japanese counterspace investment.", imp:4, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:19, priority:'DO LATER', impl:"Threat construction of China as potentially critical space actor" },
-  { num:9,  cat:'Political',     type:'trend',            title:"Activation and maturation of USSF-J at Yokota is creating a deeply integrated bilateral counterspace architecture that may draw Japan into US offensive space warfighting frameworks", desc:"USSF-J reached its first anniversary in late 2025, with Col. Ryan Laughton citing intensifying space contestation. The command has institutionalised coordination with Japan's Space Operations Group. As the US Space Force accelerates offensive counterspace capability under Trump's 2025 framework, Japan risks being drawn into postures that exceed its declared non-destructive policy.", imp:4, lik:4, nov:3, horizon:'Medium', evidence:'Substantiated', score:19, priority:'DO NEXT',  impl:"Suggests Japan's involvement in US space defense planning" },
-  { num:10, cat:'Legal',         type:'weak-signal',      title:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing residual legal barriers to offensive counterspace capability development", desc:"Japan's Basic Policy 2025 explicitly states intent to submit a bill amending the Space Activities Act to the Diet in 2026. Combined with the July 2025 Space Domain Defense Guidelines and December 2022 DBP language on disrupting adversary C2, this amendment may quietly remove residual legal constraints on counterspace operations.", imp:4, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:19, priority:'DO NOW',   impl:"Confirms near-term relevance and demands immediate consideration" },
-  { num:11, cat:'Technological', type:'confirmed-change', title:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — reflecting accelerating US-Japan defence-industrial integration in the space domain", desc:"On 3 March 2026, Lockheed Martin announced it will provide an anti-jamming payload for Japan's Next-Generation Defense Satellite Communication System, awarded to Mitsubishi Electric by the Japan MoD. The payload will enhance interoperability with allied nations and resistance to electronic warfare interference.", imp:3, lik:5, nov:3, horizon:'Near',  evidence:'Confirmed', score:18, priority:'DO NOW',   impl:"Suggests Japan's involvement in US space defense planning" },
-  { num:12, cat:'Technological', type:'emerging-issue',   title:"Japan formally planning 'bodyguard' satellites — co-orbital platforms capable of defending high-value military satellites — signalling a shift toward active on-orbit counterspace posture", desc:"The SWF April 2026 Global Counterspace Capabilities Report identifies Japan alongside France, Germany, and India as nations planning or building 'bodyguard' satellites — small satellites equipped with counterspace capabilities designed to shadow and defend high-value military assets. This will challenge traditional arms control frameworks.", imp:4, lik:3, nov:5, horizon:'Medium', evidence:'Emerging', score:17, priority:'DO LATER', impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
-  { num:13, cat:'Threats',       type:'trend',            title:"North Korea GPS jamming surged 15-fold (2023–2024); June 2025 campaign affected 500+ aircraft — justifying Japan's investment in GNSS-resilient counterspace capabilities", desc:"GPS jamming incidents surged from 39 in 2023 to 578 in 2024, with the most significant campaign (29 May–2 June 2025) affecting 500+ aircraft and hundreds of ships near Baengnyeong Island. DPRK's enhanced EW capabilities likely reflect Russian technology transfer following the June 2024 Russia-DPRK Comprehensive Strategic Partnership.", imp:3, lik:5, nov:2, horizon:'Near',  evidence:'Confirmed', score:17, priority:'DO NEXT',  impl:"Threat construction of North Korea as potentially critical space actor" },
-  { num:14, cat:'Threats',       type:'emerging-issue',   title:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", desc:"The SWF 2026 report documents that North Korea changed its policies to allow for military use of space — placing Pyongyang alongside China and Russia as a formal space-warfighting actor in Japan's threat calculus. Combined with the 15-fold GPS jamming surge, this signals potential expansion of DPRK EW space operations under formal military doctrine.", imp:3, lik:4, nov:4, horizon:'Medium', evidence:'Emerging', score:16, priority:'DO LATER', impl:"Threat construction of North Korea as potentially critical space actor" },
-  { num:15, cat:'Political',     type:'confirmed-change', title:"QZSS-6 and QZSS-7 to carry embedded US Space Force surveillance payloads — establishing a hosted-payload model that blurs Japan's civil space infrastructure and US military operations", desc:"Breaking Defense (Dec 2024) confirmed QZSS 6 (FY2026) and QZSS 7 (FY2027) will carry Space Force space surveillance payloads. China's PLA has characterised this as 'accelerating spillover of regional conflicts into outer space.' This template may enable future reciprocal hosted payloads carrying US offensive counterspace sensors on Japanese military satellites.", imp:null, lik:null, nov:null, horizon:'N/A', evidence:'N/A', score:null, priority:'MONITOR',  impl:"Confirms near-term relevance and demands immediate consideration" },
+  { num:1,  cat:'Political',     type:'confirmed-change', title:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", desc:"On 28 July 2025, Japan's MoD released its Space Domain Defense Guidelines — its first such document — explicitly stating intent to disrupt adversary C2 and framing space as a warfighting domain. Defense Minister Nakatani cited 'killer satellites' from China and Russia as direct threats. This represents a structural policy break from Japan's 1969 Diet resolution restricting military space use.", imp:5, lik:5, nov:4, horizon:'Near',  evidence:'Confirmed',    score:29, priority:'CRITICAL',    impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
+  { num:2,  cat:'Economic',      type:'confirmed-change', title:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid counterspace capability expansion through 2031", desc:"Japan's space defense budget, reported by The Mainichi and confirmed in FY2026 budget (Dec 2025), represents a tenfold increase over 2020 levels. The broader plan allocates JPY 8.81T (~$56B) across defense, with space among the fastest-growing investment areas, driven by the Defense Buildup Program targeting 2% of GDP by 2027.", imp:5, lik:5, nov:3, horizon:'Near',  evidence:'Confirmed',    score:28, priority:'CRITICAL',    impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
+  { num:3,  cat:'Political',     type:'confirmed-change', title:"JASDF restructures into Air and Space SDF; Space Operations Command planned for 2026, integrating counter-satellite operations as a core mission", desc:"Japan's Defense Ministry confirmed in late 2025 plans to restructure the JASDF into an Air and Space Self-Defense Force and establish a Space Operations Command in 2026. The Command will integrate space reconnaissance, counter-satellite operations, navigation, and missile early warning into a unified space combat system.", imp:5, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:23, priority:'SIGNIFICANT',  impl:"Clear definitive objectification of space as a priority strategic domain existing independently of US alliance" },
+  { num:4,  cat:'Technological', type:'weak-signal',      title:"SWF 2026 documents major cyberattacks against ESA and unencrypted GEO satellites — Japan's nascent space architecture is structurally ill-prepared to absorb the threat", desc:"The SWF 2026 Global Counterspace Report documented ESA system breaches and unencrypted GEO satellites. CSIS (Sep 2024) assessed Japan's space cybersecurity as 'limited' with no security clearance system for ally sharing. JAXA suffered a confirmed Active Directory compromise; MoD guidelines expanded to include cyber but JSDF 'does not have the expertise to protect satellite systems.'", imp:4, lik:5, nov:3, horizon:'Near',  evidence:'Substantiated', score:23, priority:'SIGNIFICANT',  impl:"Confirms near-term relevance and demands immediate consideration" },
+  { num:5,  cat:'Technological', type:'confirmed-change', title:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — providing indigenous real-time space object tracking underpinning all future counterspace operations", desc:"Multiple sources confirm Japan's first dedicated SDA satellite — developed jointly by JSDF and JAXA — is on track for FY2026 launch. This capability represents the essential enabling layer for any counterspace operation, allowing Japan to detect, track, and characterize threatening on-orbit behavior including the Chinese and Russian proximity operations cited in the July 2025 Guidelines.", imp:5, lik:4, nov:2, horizon:'Near',  evidence:'Substantiated', score:22, priority:'ELEVATED',    impl:"Confirms near-term relevance and demands immediate consideration" },
+  { num:6,  cat:'Economic',      type:'trend',            title:"MoD Private Finance Initiative (PFI) model — via Mitsubishi Electric, Synspective, Axelspace — is building a dual-use commercial-military space industrial base with latent counterspace potential", desc:"In February 2026, Axelspace signed a contract with Japan's MoD PFI consortium to serve as sole optical imagery provider for the defense ISR satellite constellation. The PFI structure mirrors the US Space Development Agency's proliferated architecture and will generate surveillance and targeting data pipelines that may exceed Japan's declared non-destructive counterspace policy.", imp:4, lik:4, nov:4, horizon:'Medium', evidence:'Substantiated', score:20, priority:'MONITOR',     impl:"Suggests private sector involvement as a possible consideration" },
+  { num:7,  cat:'Legal',         type:'emerging-issue',   title:"Space Activities Act amendment (2026) coinciding with Trump's 'Ensuring American Space Superiority' EO creates structural pathway toward more offensive Japanese counterspace authority", desc:"Japan's Space Activities Act amendment — scheduled for 2026 — will formally accommodate military satellite operations. This occurs in parallel with Trump's Dec 2025 executive order emphasising US offensive space operations. USSF-J at Yokota is institutionalising coordination with Japan's Space Operations Group, creating structural pressure for Japan to align its legal framework with a more offensively-oriented posture.", imp:4, lik:4, nov:4, horizon:'Near',  evidence:'Substantiated', score:20, priority:'MONITOR',     impl:"Confirms near-term relevance and demands immediate consideration" },
+  { num:8,  cat:'Threats',       type:'emerging-issue',   title:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are directly cited by Japan as justification for accelerating counterspace development", desc:"The SWF 2026 report flagged China's likely on-orbit refueling experiments (H2 2025) and a potential new DA-ASAT interceptor. Japan's July 2025 Space Domain Defense Guidelines explicitly cited Chinese and Russian RPO behavior as evidence of 'killer satellite' development — the primary threat driver for Japanese counterspace investment.", imp:4, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:19, priority:'ELEVATED',    impl:"Threat construction of China as potentially critical space actor" },
+  { num:9,  cat:'Political',     type:'trend',            title:"Activation and maturation of USSF-J at Yokota is creating a deeply integrated bilateral counterspace architecture that may draw Japan into US offensive space warfighting frameworks", desc:"USSF-J reached its first anniversary in late 2025, with Col. Ryan Laughton citing intensifying space contestation. The command has institutionalised coordination with Japan's Space Operations Group. As the US Space Force accelerates offensive counterspace capability under Trump's 2025 framework, Japan risks being drawn into postures that exceed its declared non-destructive policy.", imp:4, lik:4, nov:3, horizon:'Medium', evidence:'Substantiated', score:19, priority:'SIGNIFICANT',  impl:"Suggests Japan's involvement in US space defense planning" },
+  { num:10, cat:'Legal',         type:'weak-signal',      title:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing residual legal barriers to offensive counterspace capability development", desc:"Japan's Basic Policy 2025 explicitly states intent to submit a bill amending the Space Activities Act to the Diet in 2026. Combined with the July 2025 Space Domain Defense Guidelines and December 2022 DBP language on disrupting adversary C2, this amendment may quietly remove residual legal constraints on counterspace operations.", imp:4, lik:4, nov:3, horizon:'Near',  evidence:'Substantiated', score:19, priority:'CRITICAL',    impl:"Confirms near-term relevance and demands immediate consideration" },
+  { num:11, cat:'Technological', type:'confirmed-change', title:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — reflecting accelerating US-Japan defence-industrial integration in the space domain", desc:"On 3 March 2026, Lockheed Martin announced it will provide an anti-jamming payload for Japan's Next-Generation Defense Satellite Communication System, awarded to Mitsubishi Electric by the Japan MoD. The payload will enhance interoperability with allied nations and resistance to electronic warfare interference.", imp:3, lik:5, nov:3, horizon:'Near',  evidence:'Confirmed',    score:18, priority:'CRITICAL',    impl:"Suggests Japan's involvement in US space defense planning" },
+  { num:12, cat:'Technological', type:'emerging-issue',   title:"Japan formally planning 'bodyguard' satellites — co-orbital platforms capable of defending high-value military satellites — signalling a shift toward active on-orbit counterspace posture", desc:"The SWF April 2026 Global Counterspace Capabilities Report identifies Japan alongside France, Germany, and India as nations planning or building 'bodyguard' satellites — small satellites equipped with counterspace capabilities designed to shadow and defend high-value military assets. This will challenge traditional arms control frameworks.", imp:4, lik:3, nov:5, horizon:'Medium', evidence:'Emerging',     score:17, priority:'ELEVATED',    impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
+  { num:13, cat:'Threats',       type:'trend',            title:"North Korea GPS jamming surged 15-fold (2023–2024); June 2025 campaign affected 500+ aircraft — justifying Japan's investment in GNSS-resilient counterspace capabilities", desc:"GPS jamming incidents surged from 39 in 2023 to 578 in 2024, with the most significant campaign (29 May–2 June 2025) affecting 500+ aircraft and hundreds of ships near Baengnyeong Island. DPRK's enhanced EW capabilities likely reflect Russian technology transfer following the June 2024 Russia-DPRK Comprehensive Strategic Partnership.", imp:3, lik:5, nov:2, horizon:'Near',  evidence:'Confirmed',    score:17, priority:'SIGNIFICANT',  impl:"Threat construction of North Korea as potentially critical space actor" },
+  { num:14, cat:'Threats',       type:'emerging-issue',   title:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", desc:"The SWF 2026 report documents that North Korea changed its policies to allow for military use of space — placing Pyongyang alongside China and Russia as a formal space-warfighting actor in Japan's threat calculus. Combined with the 15-fold GPS jamming surge, this signals potential expansion of DPRK EW space operations under formal military doctrine.", imp:3, lik:4, nov:4, horizon:'Medium', evidence:'Emerging',     score:16, priority:'ELEVATED',    impl:"Threat construction of North Korea as potentially critical space actor" },
+  { num:15, cat:'Political',     type:'confirmed-change', title:"QZSS-6 and QZSS-7 to carry embedded US Space Force surveillance payloads — establishing a hosted-payload model that blurs Japan's civil space infrastructure and US military operations", desc:"Breaking Defense (Dec 2024) confirmed QZSS 6 (FY2026) and QZSS 7 (FY2027) will carry Space Force space surveillance payloads. China's PLA has characterised this as 'accelerating spillover of regional conflicts into outer space.' This template may enable future reciprocal hosted payloads carrying US offensive counterspace sensors on Japanese military satellites.", imp:null, lik:null, nov:null, horizon:'N/A', evidence:'N/A', score:null, priority:'MONITOR',     impl:"Confirms near-term relevance and demands immediate consideration" },
 ];
 
-/* ── DATA: THREATS ── */
+/* ================================================================
+   DATA: THREATS
+================================================================ */
 const THREATS = [
-  {
-    num:1, quadrant:'critical',
-    title:"PLA-affiliated APT actors (APT40 / Bronze Mohawk) conducting cyber intrusions against JAXA, the nascent JASDF Space Operations Command, and Japan's commercial space sector supply chain",
-    cap:8, intent:8, risk:64,
-    summary:"Persistent, high-capability state-sponsored intrusion campaign targeting Japan's space domain awareness architecture, satellite bus design intelligence, and commercial supply chain. JAXA Active Directory compromise confirmed; MirrorFace publicly attributed by Japan NPA (January 2025).",
-    enabling:"JASDF Space Operations Command remains in pre-operational construction phase as of April 2026. Japan's commercial space sector (100+ start-ups) is being rapidly integrated into the defense supply chain before commercial cybersecurity standards have been codified under the Active Cyber Defense Act (not fully in force until November 2027). APT40 and MirrorFace possess proven capabilities to exploit VPN and edge-device vulnerabilities.",
-    constraining:"USSF-J extends US-level SIGINT visibility over the Japanese space sector. Japan's National Cybersecurity Office (est. 2025) centralises incident response. Active Cyber Defence Bill (May 2025) begins closing legal and procedural gaps. Public attribution of APT40 (Jul 2024) and MirrorFace (Jan 2025) has imposed infrastructure and operational costs on PRC cyber actors."
-  },
-  {
-    num:2, quadrant:'critical',
-    title:"PLA EW units conducting GPS/GNSS jamming and spoofing in the Philippine Sea, East China Sea, and Nansei Shoto island chain, targeting JSDF navigation, ISR, and Aegis missile defense systems",
-    cap:9, intent:7, risk:63,
-    summary:"Highest capability threat actor in the assessment. Mobile or ship-based EW systems operating from PLAN surface combatants routinely transiting the Miyako and Osumi Straits within effective jamming range of JSDF installations. Aegis Ashore systems and ship-based Aegis fleet rely on GPS for PNT time-reference inputs; degradation creates exploitable windows in fire control timing accuracy.",
-    enabling:"Nansei Shoto chain presents a geographically vast detection frontier. December 2025 Justice Mission 2025 exercise demonstrated PLA can mass multi-domain forces under exercise cover. Japan's 2026 Diplomatic Bluebook cited Chinese radar illumination of JSDF aircraft. Commercial GPS tracking databases normalise the EW environment and provide plausible deniability.",
-    constraining:"JGSDF EW Unit deployed to Yonaguni (2023); anti-aircraft EW unit planned for 2026. US-Japan Feb 2025 summit cited increased bilateral presence in Southwest Islands. US and JSDF platforms operate ESM capable of geolocating jamming sources, creating kinetic targeting risk for radiating EW platforms. Japan's defense spending increase has funded accelerated anti-jamming resilience investments."
-  },
-  {
-    num:3, quadrant:'critical',
-    title:"PLA Strategic Support Force / Space Systems Department employing DA-ASAT missiles and co-orbital inspector satellites (SJ-series, Shiyan-24C) against JSDF reconnaissance and Kirameki comms satellites in LEO/GEO",
-    cap:6, intent:6, risk:36,
-    summary:"China has conducted regular co-planar orbital alignments and docking maneuvers in LEO and GEO over the last 15 years, with dual-use capabilities likely. At least one active DA-ASAT with KKV capacity has been tested more than five times, placing JSDF technology in LEO/GEO directly at risk. Intent to use as deterrence or defense remains largely unclear.",
-    enabling:"Mature, tested DA-ASAT capability with 5+ confirmed tests. Co-orbital inspector satellites with demonstrated rendezvous and proximity operations capability. Japan's July 2025 Guidelines explicitly cite Chinese RPO behavior as threat driver. Japan's first dedicated SDA satellite not yet on orbit as of April 2026, leaving a transitional vulnerability window.",
-    constraining:"Kinetic ASAT use generates orbital debris affecting China's own space assets. International community response to debris-generating events (demonstrated by November 2021 Russian ASAT test) imposes diplomatic costs. US-Japan alliance means attack on JSDF satellites triggers potential alliance response. Operational restraint pattern: no kinetic counterspace use in active conflict theatres."
-  },
-  {
-    num:4, quadrant:'elevated',
-    title:"Russian GRU / Cosmos-2576-class co-orbital weapons and Peresvet ground-based laser dazzling systems threatening Japan-hosted USSF-J assets and JSDF space domain awareness satellites at Yokota and Fuchu",
-    cap:5, intent:6, risk:30,
-    summary:"Yokota/Fuchu complex hosts concentrated, publicly identified allied space C2 infrastructure within a discrete geographic footprint ~50km west of Tokyo, creating a high-value, well-characterised target. Cosmos 2576 conducted orbital maneuvers (Dec 2024–Feb 2025), demonstrating active positioning behavior that could support contingency targeting of allied ISR satellites overflying Japanese airspace.",
-    enabling:"Japan's first dedicated SDA satellite not yet on orbit (April 2026) means JSDF is dependent on shared USSF feeds during a transitional vulnerability window. Peresvet deployment in Russian Far East places the system within theoretical range of satellites overflying Japanese airspace. Russia may be developing high-powered space-based EW platforms to augment ground-based systems (SWF 2026).",
-    constraining:"Any Russian action against Japan-hosted assets constitutes a direct attack on US military capability, triggering alliance obligations and USSPACECOM response options. Russia's demonstrated pattern of counterspace restraint in Ukraine (2022–2026) — where Russia has not used kinetic or directed-energy counterspace capabilities against a live adversary — constitutes strong evidence against employment. Russia's strategic bandwidth consumed by Ukraine."
-  },
-  {
-    num:5, quadrant:'elevated',
-    title:"North Korean RGB / Unit 180 pursuing Kim Jong Un's January 2024 directive to develop 'special assets for attacking enemy satellites,' combined with ballistic missile overflight threat to Japan-based USSF-J and JASDF space surveillance infrastructure",
-    cap:1, intent:8, risk:8,
-    summary:"North Korea is kept alive by its ability to deter possible interferers through land-based nuclear weapons or the threat of ASAT technology. It is extremely unlikely the RGB or Unit 180 has the financial and material resources to support significant counterspace developments, and North Korea's near-silent public space program footprint since early 2024 supports this assessment.",
-    enabling:"Kim Jong Un's January 2024 directive explicitly authorises development of 'special assets for attacking enemy satellites.' GPS jamming incidents surged 15-fold 2023–2024. DPRK's SWF 2026-documented policy change formally legalising military space operations. Possible Russian technology transfer following June 2024 Russia-DPRK Comprehensive Strategic Partnership.",
-    constraining:"Financial and material resource constraints make significant independent counterspace development extremely unlikely within the five-year horizon. Silent public footprint of DPRK space program since early 2024 suggests stalled or redirected programs. Ballistic missile overflight risk remains constrained by Japan's BMD architecture and alliance deterrence. Any ASAT employment risks catastrophic retaliatory response."
-  },
+  { num:1, quadrant:'critical', title:"PLA-affiliated APT actors (APT40 / Bronze Mohawk) conducting cyber intrusions against JAXA, the nascent JASDF Space Operations Command, and Japan's commercial space sector supply chain", cap:8, intent:8, risk:64, summary:"Persistent, high-capability state-sponsored intrusion campaign targeting Japan's space domain awareness architecture, satellite bus design intelligence, and commercial supply chain. JAXA Active Directory compromise confirmed; MirrorFace publicly attributed by Japan NPA (January 2025).", enabling:"JASDF Space Operations Command remains in pre-operational construction phase as of April 2026. Japan's commercial space sector (100+ start-ups) is being rapidly integrated into the defense supply chain before commercial cybersecurity standards have been codified under the Active Cyber Defense Act (not fully in force until November 2027). APT40 and MirrorFace possess proven capabilities to exploit VPN and edge-device vulnerabilities.", constraining:"USSF-J extends US-level SIGINT visibility over the Japanese space sector. Japan's National Cybersecurity Office (est. 2025) centralises incident response. Active Cyber Defence Bill (May 2025) begins closing legal and procedural gaps. Public attribution of APT40 (Jul 2024) and MirrorFace (Jan 2025) has imposed infrastructure and operational costs on PRC cyber actors." },
+  { num:2, quadrant:'critical', title:"PLA EW units conducting GPS/GNSS jamming and spoofing in the Philippine Sea, East China Sea, and Nansei Shoto island chain, targeting JSDF navigation, ISR, and Aegis missile defense systems", cap:9, intent:7, risk:63, summary:"Highest capability threat actor in the assessment. Mobile or ship-based EW systems operating from PLAN surface combatants routinely transiting the Miyako and Osumi Straits within effective jamming range of JSDF installations. Aegis Ashore systems and ship-based Aegis fleet rely on GPS for PNT time-reference inputs; degradation creates exploitable windows in fire control timing accuracy.", enabling:"Nansei Shoto chain presents a geographically vast detection frontier. December 2025 Justice Mission 2025 exercise demonstrated PLA can mass multi-domain forces under exercise cover. Japan's 2026 Diplomatic Bluebook cited Chinese radar illumination of JSDF aircraft. Commercial GPS tracking databases normalise the EW environment and provide plausible deniability.", constraining:"JGSDF EW Unit deployed to Yonaguni (2023); anti-aircraft EW unit planned for 2026. US-Japan Feb 2025 summit cited increased bilateral presence in Southwest Islands. US and JSDF platforms operate ESM capable of geolocating jamming sources, creating kinetic targeting risk for radiating EW platforms. Japan's defense spending increase has funded accelerated anti-jamming resilience investments." },
+  { num:3, quadrant:'critical', title:"PLA Strategic Support Force / Space Systems Department employing DA-ASAT missiles and co-orbital inspector satellites (SJ-series, Shiyan-24C) against JSDF reconnaissance and Kirameki comms satellites in LEO/GEO", cap:6, intent:6, risk:36, summary:"China has conducted regular co-planar orbital alignments and docking maneuvers in LEO and GEO over the last 15 years, with dual-use capabilities likely. At least one active DA-ASAT with KKV capacity has been tested more than five times, placing JSDF technology in LEO/GEO directly at risk. Intent to use as deterrence or defense remains largely unclear.", enabling:"Mature, tested DA-ASAT capability with 5+ confirmed tests. Co-orbital inspector satellites with demonstrated rendezvous and proximity operations capability. Japan's July 2025 Guidelines explicitly cite Chinese RPO behavior as threat driver. Japan's first dedicated SDA satellite not yet on orbit as of April 2026, leaving a transitional vulnerability window.", constraining:"Kinetic ASAT use generates orbital debris affecting China's own space assets. International community response to debris-generating events (demonstrated by November 2021 Russian ASAT test) imposes diplomatic costs. US-Japan alliance means attack on JSDF satellites triggers potential alliance response. Operational restraint pattern: no kinetic counterspace use in active conflict theatres." },
+  { num:4, quadrant:'elevated', title:"Russian GRU / Cosmos-2576-class co-orbital weapons and Peresvet ground-based laser dazzling systems threatening Japan-hosted USSF-J assets and JSDF space domain awareness satellites at Yokota and Fuchu", cap:5, intent:6, risk:30, summary:"Yokota/Fuchu complex hosts concentrated, publicly identified allied space C2 infrastructure within a discrete geographic footprint ~50km west of Tokyo, creating a high-value, well-characterised target. Cosmos 2576 conducted orbital maneuvers (Dec 2024–Feb 2025), demonstrating active positioning behavior that could support contingency targeting of allied ISR satellites overflying Japanese airspace.", enabling:"Japan's first dedicated SDA satellite not yet on orbit (April 2026) means JSDF is dependent on shared USSF feeds during a transitional vulnerability window. Peresvet deployment in Russian Far East places the system within theoretical range of satellites overflying Japanese airspace. Russia may be developing high-powered space-based EW platforms to augment ground-based systems (SWF 2026).", constraining:"Any Russian action against Japan-hosted assets constitutes a direct attack on US military capability, triggering alliance obligations and USSPACECOM response options. Russia's demonstrated pattern of counterspace restraint in Ukraine (2022–2026) — where Russia has not used kinetic or directed-energy counterspace capabilities against a live adversary — constitutes strong evidence against employment. Russia's strategic bandwidth consumed by Ukraine." },
+  { num:5, quadrant:'elevated', title:"North Korean RGB / Unit 180 pursuing Kim Jong Un's January 2024 directive to develop 'special assets for attacking enemy satellites,' combined with ballistic missile overflight threat to Japan-based USSF-J and JASDF space surveillance infrastructure", cap:1, intent:8, risk:8, summary:"North Korea is kept alive by its ability to deter possible interferers through land-based nuclear weapons or the threat of ASAT technology. It is extremely unlikely the RGB or Unit 180 has the financial and material resources to support significant counterspace developments, and North Korea's near-silent public space program footprint since early 2024 supports this assessment.", enabling:"Kim Jong Un's January 2024 directive explicitly authorises development of 'special assets for attacking enemy satellites.' GPS jamming incidents surged 15-fold 2023–2024. DPRK's SWF 2026-documented policy change formally legalising military space operations. Possible Russian technology transfer following June 2024 Russia-DPRK Comprehensive Strategic Partnership.", constraining:"Financial and material resource constraints make significant independent counterspace development extremely unlikely within the five-year horizon. Silent public footprint of DPRK space program since early 2024 suggests stalled or redirected programs. Ballistic missile overflight risk remains constrained by Japan's BMD architecture and alliance deterrence. Any ASAT employment risks catastrophic retaliatory response." },
 ];
 
-/* ── DATA: ROADMAP ── */
+/* ================================================================
+   DATA: ROADMAP
+================================================================ */
 const ROADMAP = [
-  { priority:'CRITICAL', signal:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
-  { priority:'CRITICAL', signal:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid capability expansion through 2031", impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
-  { priority:'CRITICAL', signal:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing legal barriers to offensive counterspace development", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'CRITICAL', signal:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — accelerating US-Japan defense-industrial integration in space", impl:"Suggests Japan's involvement in US space defense planning" },
+  { priority:'CRITICAL',    signal:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
+  { priority:'CRITICAL',    signal:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid capability expansion through 2031", impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
+  { priority:'CRITICAL',    signal:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing legal barriers to offensive counterspace development", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'CRITICAL',    signal:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — accelerating US-Japan defense-industrial integration in space", impl:"Suggests Japan's involvement in US space defense planning" },
   { priority:'SIGNIFICANT', signal:"JASDF restructures into Air and Space SDF; Space Operations Command planned for 2026, integrating counter-satellite operations as a core mission", impl:"Clear definitive objectification of space as a priority strategic domain existing independently of US alliance" },
   { priority:'SIGNIFICANT', signal:"SWF 2026 documents intensifying cyber-counterspace threats — Japan's nascent space architecture is structurally ill-prepared to absorb them", impl:"Confirms near-term relevance and demands immediate consideration" },
   { priority:'SIGNIFICANT', signal:"Activation and maturation of USSF-J at Yokota creating a deeply integrated bilateral counterspace architecture — may draw Japan into US offensive space warfighting frameworks", impl:"Suggests Japan's involvement in US space defense planning" },
   { priority:'SIGNIFICANT', signal:"North Korea GPS jamming surged 15-fold (2023–2024); June 2025 campaign affected 500+ aircraft — justifying GNSS-resilient counterspace investment", impl:"Threat construction of North Korea as potentially critical space actor" },
-  { priority:'ELEVATED', signal:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — indigenous real-time space object tracking underpinning all future counterspace operations", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'ELEVATED', signal:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are cited by Japan as justification for accelerating counterspace development", impl:"Threat construction of China as potentially critical space actor" },
-  { priority:'ELEVATED', signal:"Japan formally planning 'bodyguard' satellites — co-orbital platforms for defending high-value military assets — signalling shift toward active on-orbit counterspace posture", impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
-  { priority:'ELEVATED', signal:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", impl:"Threat construction of North Korea as potentially critical space actor" },
-  { priority:'MONITOR', signal:"MoD Private Finance Initiative — Mitsubishi Electric, Synspective, Axelspace — building a dual-use commercial-military space industrial base with latent counterspace potential", impl:"Suggests private sector involvement as a possible consideration" },
-  { priority:'MONITOR', signal:"Space Activities Act amendment (2026) + Trump's 'Ensuring American Space Superiority' EO create structural pathway toward more offensive Japanese counterspace authority", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'MONITOR', signal:"QZSS-6 and QZSS-7 to carry US Space Force surveillance payloads — establishing a hosted-payload model blurring civil space infrastructure and US military operations", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'ELEVATED',    signal:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — indigenous real-time space object tracking underpinning all future counterspace operations", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'ELEVATED',    signal:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are cited by Japan as justification for accelerating counterspace development", impl:"Threat construction of China as potentially critical space actor" },
+  { priority:'ELEVATED',    signal:"Japan formally planning 'bodyguard' satellites — co-orbital platforms for defending high-value military assets — signalling shift toward active on-orbit counterspace posture", impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
+  { priority:'ELEVATED',    signal:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", impl:"Threat construction of North Korea as potentially critical space actor" },
+  { priority:'MONITOR',     signal:"MoD Private Finance Initiative — Mitsubishi Electric, Synspective, Axelspace — building a dual-use commercial-military space industrial base with latent counterspace potential", impl:"Suggests private sector involvement as a possible consideration" },
+  { priority:'MONITOR',     signal:"Space Activities Act amendment (2026) + Trump's 'Ensuring American Space Superiority' EO create structural pathway toward more offensive Japanese counterspace authority", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'MONITOR',     signal:"QZSS-6 and QZSS-7 to carry US Space Force surveillance payloads — establishing a hosted-payload model blurring civil space infrastructure and US military operations", impl:"Confirms near-term relevance and demands immediate consideration" },
 ];
 
-/* ── RENDER: SIGNAL LIST ── */
+/* ================================================================
+   RENDER: SIGNAL LIST
+================================================================ */
 const catTagClass = { Political:'tag-political', Economic:'tag-economic', Technological:'tag-tech', Threats:'tag-threats', Legal:'tag-legal' };
-const priClass     = { 'CRITICAL':'critical', 'SIGNIFICANT':'significant', 'ELEVATED':'elevated', 'MONITOR':'monitor' };
-const priTagClass  = { 'CRITICAL':'pri-critical', 'SIGNIFICANT':'pri-significant', 'ELEVATED':'pri-elevated', 'MONITOR':'pri-monitor' };
+const priClass    = { 'CRITICAL':'critical', 'SIGNIFICANT':'significant', 'ELEVATED':'contributing', 'MONITOR':'monitor' };
+const priTagClass = { 'CRITICAL':'pri-critical', 'SIGNIFICANT':'pri-significant', 'ELEVATED':'pri-contributing', 'MONITOR':'pri-monitor' };
 
 (function renderSignals() {
   const sorted = [...SIGNALS].sort((a,b) => (b.score||0) - (a.score||0));
@@ -754,14 +701,16 @@ const priTagClass  = { 'CRITICAL':'pri-critical', 'SIGNIFICANT':'pri-significant
   });
 })();
 
-/* ── RENDER: SCORE BARS ── */
+/* ================================================================
+   RENDER: SCORE BARS
+================================================================ */
 (function renderScoreBars() {
-  const scored  = SIGNALS.filter(s => s.score != null).sort((a,b) => b.score - a.score);
+  const scored   = SIGNALS.filter(s => s.score != null).sort((a,b) => b.score - a.score);
   const maxScore = scored[0].score;
   const el = document.getElementById('scoreBarList');
   scored.forEach(s => {
     const pct   = Math.round((s.score / maxScore) * 100);
-    const color = s.priority === 'CRITICAL' ? '#884444' : s.priority === 'SIGNIFICANT' ? '#887744' : s.priority === 'ELEVATED' ? '#556688' : s.priority === 'MONITOR' ? '#446644';
+    const color = s.priority === 'CRITICAL' ? '#884444' : s.priority === 'SIGNIFICANT' ? '#887744' : s.priority === 'ELEVATED' ? '#556688' : '#446644';
     el.innerHTML += `
     <div class="score-bar-row">
       <div class="score-bar-label" title="${s.title}">${String(s.num).padStart(2,'0')}. ${s.title.substring(0,60)}…</div>
@@ -771,7 +720,9 @@ const priTagClass  = { 'CRITICAL':'pri-critical', 'SIGNIFICANT':'pri-significant
   });
 })();
 
-/* ── RENDER: THREATS ── */
+/* ================================================================
+   RENDER: THREATS
+================================================================ */
 (function renderThreats() {
   const el = document.getElementById('threatList');
   THREATS.forEach(t => {
@@ -817,15 +768,19 @@ function toggleThreat(num) {
   arrow.textContent = open ? '▽' : '▷';
 }
 
-/* ── RENDER: ROADMAP ── */
+/* ================================================================
+   RENDER: ROADMAP  ← FIX: keys now match ROADMAP data
+================================================================ */
 (function renderRoadmap() {
-  const order = ['DO NOW','DO NEXT','DO LATER','MONITOR'];
-  const labels = { 'CRITICAL':'critical', 'SIGNIFICANT':'Significant', 'ELEVATED':'elevated', 'MONITOR':'Monitor' };
+  const order  = ['CRITICAL', 'SIGNIFICANT', 'ELEVATED', 'MONITOR'];
+  const labels = { 'CRITICAL':'Critical', 'SIGNIFICANT':'Significant', 'ELEVATED':'Elevated', 'MONITOR':'Monitor' };
   const cls    = { 'CRITICAL':'rg-critical', 'SIGNIFICANT':'rg-significant', 'ELEVATED':'rg-elevated', 'MONITOR':'rg-monitor' };
   const el = document.getElementById('roadmapList');
   order.forEach(pri => {
+    const items = ROADMAP.filter(r => r.priority === pri);
+    if (!items.length) return;
     el.innerHTML += `<div class="roadmap-group-header ${cls[pri]}">${labels[pri]}</div>`;
-    ROADMAP.filter(r => r.priority === pri).forEach(r => {
+    items.forEach(r => {
       el.innerHTML += `
       <div class="roadmap-item">
         ${r.signal}
@@ -836,21 +791,23 @@ function toggleThreat(num) {
   });
 })();
 
-/* ── CHART: SCORE BAR ── */
-(function buildScoreChart() {
+/* ================================================================
+   CHART: SCORE BAR  ← FIX: called lazily from showTab()
+================================================================ */
+function buildScoreChart() {
   const scored = [...SIGNALS].filter(s => s.score != null).sort((a,b) => {
     const order = {'CRITICAL':0,'SIGNIFICANT':1,'ELEVATED':2,'MONITOR':3};
     return order[a.priority] - order[b.priority] || b.score - a.score;
   });
   const colors = scored.map(s =>
-    s.priority === 'CRITICAL'   ? '#884444' :
-    s.priority === 'SIGNIFICANT'  ? '#887744' :
-    s.priority === 'ELEVATED' ? '#556688' : '#446644'
+    s.priority === 'CRITICAL'    ? '#884444' :
+    s.priority === 'SIGNIFICANT' ? '#887744' :
+    s.priority === 'ELEVATED'    ? '#556688' : '#446644'
   );
   new Chart(document.getElementById('scoreChart'), {
     type: 'bar',
     data: {
-      labels: scored.map(s => `${String(s.num).padStart(2,'0')}`),
+      labels: scored.map(s => String(s.num).padStart(2,'0')),
       datasets: [{ data: scored.map(s => s.score), backgroundColor: colors, borderRadius: 1 }]
     },
     options: {
@@ -858,50 +815,51 @@ function toggleThreat(num) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: '#111', borderColor: '#2a2a2a', borderWidth: 1,
-          titleColor: '#cccccc', bodyColor: '#888888',
-          titleFont: { family: 'Courier New', size: 11 },
-          bodyFont:  { family: 'Courier New', size: 11 },
+          backgroundColor:'#111', borderColor:'#2a2a2a', borderWidth:1,
+          titleColor:'#cccccc', bodyColor:'#888888',
+          titleFont:{ family:'Courier New', size:11 },
+          bodyFont:{ family:'Courier New', size:11 },
           callbacks: {
             title: ctx => scored[ctx[0].dataIndex].title.substring(0,60) + '…',
-            label: ctx => ` Score: ${ctx.parsed.y}  ·  ${scored[ctx.dataIndex].priority}`
+            label: ctx => ` Score: ${ctx.parsed.y}  ·  ${scored[ctx[0].dataIndex].priority}`
           }
         }
       },
       scales: {
-        x: { ticks: { color:'#555', font:{ family:'Courier New', size:11 } }, grid:{ color:'rgba(255,255,255,0.03)' } },
+        x: { ticks:{ color:'#555', font:{ family:'Courier New', size:11 } }, grid:{ color:'rgba(255,255,255,0.03)' } },
         y: {
-          ticks: { color:'#555', font:{ family:'Courier New', size:11 } },
-          grid:  { color:'rgba(255,255,255,0.03)' },
-          title: { display:true, text:'Composite Score', color:'#555', font:{ family:'Courier New', size:10 } }
+          ticks:{ color:'#555', font:{ family:'Courier New', size:11 } },
+          grid:{ color:'rgba(255,255,255,0.03)' },
+          title:{ display:true, text:'Composite Score', color:'#555', font:{ family:'Courier New', size:10 } }
         }
       }
     }
   });
-})();
+}
 
-/* ── CHART: THREAT SCATTER ── */
-(function buildThreatChart() {
-  const colors = { critical:'rgba(187,119,119,0.7)', elevated:'rgba(170,153,102,0.7)' };
+/* ================================================================
+   CHART: THREAT SCATTER  ← FIX: called lazily from showTab()
+================================================================ */
+function buildThreatChart() {
   new Chart(document.getElementById('threatChart'), {
     type: 'bubble',
     data: {
       datasets: [{
         label: 'Critical',
-        data: THREATS.filter(t => t.quadrant === 'critical').map(t => ({ x: t.cap, y: t.intent, r: Math.max(8, t.risk / 5), threat: t })),
-        backgroundColor: colors.critical,
-        borderColor: 'rgba(187,119,119,0.3)', borderWidth: 1,
+        data: THREATS.filter(t => t.quadrant === 'critical').map(t => ({ x:t.cap, y:t.intent, r:Math.max(8, t.risk/5), threat:t })),
+        backgroundColor: 'rgba(187,119,119,0.7)',
+        borderColor: 'rgba(187,119,119,0.3)', borderWidth:1,
       },{
         label: 'Elevated',
-        data: THREATS.filter(t => t.quadrant === 'elevated').map(t => ({ x: t.cap, y: t.intent, r: Math.max(8, t.risk / 5), threat: t })),
-        backgroundColor: colors.elevated,
-        borderColor: 'rgba(170,153,102,0.3)', borderWidth: 1,
+        data: THREATS.filter(t => t.quadrant === 'elevated').map(t => ({ x:t.cap, y:t.intent, r:Math.max(8, t.risk/5), threat:t })),
+        backgroundColor: 'rgba(170,153,102,0.7)',
+        borderColor: 'rgba(170,153,102,0.3)', borderWidth:1,
       }]
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       plugins: {
-        legend: { labels: { color:'#666', font:{ family:'Courier New', size:11 } } },
+        legend:{ labels:{ color:'#666', font:{ family:'Courier New', size:11 } } },
         tooltip: {
           backgroundColor:'#111', borderColor:'#2a2a2a', borderWidth:1,
           titleColor:'#cccccc', bodyColor:'#888888',
@@ -929,7 +887,7 @@ function toggleThreat(num) {
       }
     }
   });
-})();
+}
 </script>
 </body>
 </html>
