@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Counterspace Development Monitor</title>
+<title>Japan SDA Development Monitor</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   :root {
@@ -346,7 +346,7 @@
   <div class="header-text">
     <div class="header-firm">Nomad S.I.G. — Security | Intelligence |
      Geopolitics</div>
-    <div class="header-title">Japan Counterspace Development</div>
+    <div class="header-title">Japan SDA Development</div>
     <div class="header-subtitle">5-Year Capability & Threat Environment Assessment · MON-02</div>
   </div>
   <div class="header-meta">
@@ -627,8 +627,8 @@
 
 <!-- ── FOOTER ── -->
 <div class="footer">
-  <div>NOMAD S.I.G. — SECURITY | INTELLIGENCE | GEOPOLITICS</div>
-  <div class="footer-center">JAPAN COUNTERSPACE DEVELOPMENT · MON-02 · APRIL 2026<br>Sources: Japan_Counterspace_Development_5_Years.xlsx · Japan_Counterspace_Threat_Environment.xlsx</div>
+  <div>NOMAD SIG</div>
+  <div class="footer-center">JAPAN SDA DEVELOPMENT · MON-02 · APRIL 2026<br>Sources: Japan_Counterspace_Development_5_Years.xlsx · Japan_Counterspace_Threat_Environment.xlsx</div>
   <div>APRIL 2026</div>
 </div>
 
@@ -707,18 +707,18 @@ const THREATS = [
 
 /* ── DATA: ROADMAP ── */
 const ROADMAP = [
-  { priority:'DO NOW', signal:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
-  { priority:'DO NOW', signal:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid capability expansion through 2031", impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
-  { priority:'DO NOW', signal:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing legal barriers to offensive counterspace development", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'DO NOW', signal:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — accelerating US-Japan defense-industrial integration in space", impl:"Suggests Japan's involvement in US space defense planning" },
-  { priority:'DO NEXT', signal:"JASDF restructures into Air and Space SDF; Space Operations Command planned for 2026, integrating counter-satellite operations as a core mission", impl:"Clear definitive objectification of space as a priority strategic domain existing independently of US alliance" },
-  { priority:'DO NEXT', signal:"SWF 2026 documents intensifying cyber-counterspace threats — Japan's nascent space architecture is structurally ill-prepared to absorb them", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'DO NEXT', signal:"Activation and maturation of USSF-J at Yokota creating a deeply integrated bilateral counterspace architecture — may draw Japan into US offensive space warfighting frameworks", impl:"Suggests Japan's involvement in US space defense planning" },
-  { priority:'DO NEXT', signal:"North Korea GPS jamming surged 15-fold (2023–2024); June 2025 campaign affected 500+ aircraft — justifying GNSS-resilient counterspace investment", impl:"Threat construction of North Korea as potentially critical space actor" },
-  { priority:'DO LATER', signal:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — indigenous real-time space object tracking underpinning all future counterspace operations", impl:"Confirms near-term relevance and demands immediate consideration" },
-  { priority:'DO LATER', signal:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are cited by Japan as justification for accelerating counterspace development", impl:"Threat construction of China as potentially critical space actor" },
-  { priority:'DO LATER', signal:"Japan formally planning 'bodyguard' satellites — co-orbital platforms for defending high-value military assets — signalling shift toward active on-orbit counterspace posture", impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
-  { priority:'DO LATER', signal:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", impl:"Threat construction of North Korea as potentially critical space actor" },
+  { priority:'CRITICAL', signal:"MoD publishes first-ever Space Domain Defense Guidelines, codifying offensive counterspace disruption as a legitimate JSDF mission", impl:"Increased legitimacy of Japanese counterspace operations, precedent for further action and development" },
+  { priority:'CRITICAL', signal:"FY2026 defense budget allocates ~$3.5B to space — a tenfold increase over 2020 — enabling rapid capability expansion through 2031", impl:"Includes counterspace development in Japanese remilitarization in a definitive sense" },
+  { priority:'CRITICAL', signal:"Basic Space Policy 2025 commits to amending the Space Activities Act in 2026, potentially removing legal barriers to offensive counterspace development", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'CRITICAL', signal:"Lockheed Martin contracted for anti-jamming payload on Japan's Next-Gen Defense Comms Satellite — accelerating US-Japan defense-industrial integration in space", impl:"Suggests Japan's involvement in US space defense planning" },
+  { priority:'SIGNIFICANT', signal:"JASDF restructures into Air and Space SDF; Space Operations Command planned for 2026, integrating counter-satellite operations as a core mission", impl:"Clear definitive objectification of space as a priority strategic domain existing independently of US alliance" },
+  { priority:'SIGNIFICANT', signal:"SWF 2026 documents intensifying cyber-counterspace threats — Japan's nascent space architecture is structurally ill-prepared to absorb them", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'SIGNIFICANT', signal:"Activation and maturation of USSF-J at Yokota creating a deeply integrated bilateral counterspace architecture — may draw Japan into US offensive space warfighting frameworks", impl:"Suggests Japan's involvement in US space defense planning" },
+  { priority:'SIGNIFICANT', signal:"North Korea GPS jamming surged 15-fold (2023–2024); June 2025 campaign affected 500+ aircraft — justifying GNSS-resilient counterspace investment", impl:"Threat construction of North Korea as potentially critical space actor" },
+  { priority:'ELEVATED', signal:"Japan's first Space Domain Awareness satellite on track for FY2026 launch — indigenous real-time space object tracking underpinning all future counterspace operations", impl:"Confirms near-term relevance and demands immediate consideration" },
+  { priority:'ELEVATED', signal:"China's likely on-orbit refueling experiments and reports of a new DA-ASAT interceptor are cited by Japan as justification for accelerating counterspace development", impl:"Threat construction of China as potentially critical space actor" },
+  { priority:'ELEVATED', signal:"Japan formally planning 'bodyguard' satellites — co-orbital platforms for defending high-value military assets — signalling shift toward active on-orbit counterspace posture", impl:"Implies continuation of security escalations between Japan and China from regional to space domain" },
+  { priority:'ELEVATED', signal:"North Korea's formal legalization of military space operations creates a third credible counterspace threat actor in Japan's immediate neighbourhood", impl:"Threat construction of North Korea as potentially critical space actor" },
   { priority:'MONITOR', signal:"MoD Private Finance Initiative — Mitsubishi Electric, Synspective, Axelspace — building a dual-use commercial-military space industrial base with latent counterspace potential", impl:"Suggests private sector involvement as a possible consideration" },
   { priority:'MONITOR', signal:"Space Activities Act amendment (2026) + Trump's 'Ensuring American Space Superiority' EO create structural pathway toward more offensive Japanese counterspace authority", impl:"Confirms near-term relevance and demands immediate consideration" },
   { priority:'MONITOR', signal:"QZSS-6 and QZSS-7 to carry US Space Force surveillance payloads — establishing a hosted-payload model blurring civil space infrastructure and US military operations", impl:"Confirms near-term relevance and demands immediate consideration" },
@@ -726,8 +726,8 @@ const ROADMAP = [
 
 /* ── RENDER: SIGNAL LIST ── */
 const catTagClass = { Political:'tag-political', Economic:'tag-economic', Technological:'tag-tech', Threats:'tag-threats', Legal:'tag-legal' };
-const priClass     = { 'DO NOW':'do-now', 'DO NEXT':'do-next', 'DO LATER':'do-later', 'MONITOR':'monitor' };
-const priTagClass  = { 'DO NOW':'pri-do-now', 'DO NEXT':'pri-do-next', 'DO LATER':'pri-do-later', 'MONITOR':'pri-monitor' };
+const priClass     = { 'CRITICAL':'critical', 'SIGNIFICANT':'significant', 'ELEVATED':'elevated', 'MONITOR':'monitor' };
+const priTagClass  = { 'CRITICAL':'pri-critical', 'SIGNIFICANT':'pri-significant', 'ELEVATED':'pri-elevated', 'MONITOR':'pri-monitor' };
 
 (function renderSignals() {
   const sorted = [...SIGNALS].sort((a,b) => (b.score||0) - (a.score||0));
@@ -761,7 +761,7 @@ const priTagClass  = { 'DO NOW':'pri-do-now', 'DO NEXT':'pri-do-next', 'DO LATER
   const el = document.getElementById('scoreBarList');
   scored.forEach(s => {
     const pct   = Math.round((s.score / maxScore) * 100);
-    const color = s.priority === 'DO NOW' ? '#884444' : s.priority === 'DO NEXT' ? '#887744' : s.priority === 'DO LATER' ? '#556688' : '#446644';
+    const color = s.priority === 'CRITICAL' ? '#884444' : s.priority === 'SIGNIFICANT' ? '#887744' : s.priority === 'ELEVATED' ? '#556688' : s.priority === 'MONITOR' ? '#446644';
     el.innerHTML += `
     <div class="score-bar-row">
       <div class="score-bar-label" title="${s.title}">${String(s.num).padStart(2,'0')}. ${s.title.substring(0,60)}…</div>
@@ -820,8 +820,8 @@ function toggleThreat(num) {
 /* ── RENDER: ROADMAP ── */
 (function renderRoadmap() {
   const order = ['DO NOW','DO NEXT','DO LATER','MONITOR'];
-  const labels = { 'DO NOW':'Do Now', 'DO NEXT':'Do Next', 'DO LATER':'Do Later', 'MONITOR':'Monitor' };
-  const cls    = { 'DO NOW':'rg-do-now', 'DO NEXT':'rg-do-next', 'DO LATER':'rg-do-later', 'MONITOR':'rg-monitor' };
+  const labels = { 'CRITICAL':'critical', 'SIGNIFICANT':'Significant', 'ELEVATED':'elevated', 'MONITOR':'Monitor' };
+  const cls    = { 'CRITICAL':'rg-critical', 'SIGNIFICANT':'rg-significant', 'ELEVATED':'rg-elevated', 'MONITOR':'rg-monitor' };
   const el = document.getElementById('roadmapList');
   order.forEach(pri => {
     el.innerHTML += `<div class="roadmap-group-header ${cls[pri]}">${labels[pri]}</div>`;
@@ -839,13 +839,13 @@ function toggleThreat(num) {
 /* ── CHART: SCORE BAR ── */
 (function buildScoreChart() {
   const scored = [...SIGNALS].filter(s => s.score != null).sort((a,b) => {
-    const order = {'DO NOW':0,'DO NEXT':1,'DO LATER':2,'MONITOR':3};
+    const order = {'CRITICAL':0,'SIGNIFICANT':1,'ELEVATED':2,'MONITOR':3};
     return order[a.priority] - order[b.priority] || b.score - a.score;
   });
   const colors = scored.map(s =>
-    s.priority === 'DO NOW'   ? '#884444' :
-    s.priority === 'DO NEXT'  ? '#887744' :
-    s.priority === 'DO LATER' ? '#556688' : '#446644'
+    s.priority === 'CRITICAL'   ? '#884444' :
+    s.priority === 'SIGNIFICANT'  ? '#887744' :
+    s.priority === 'ELEVATED' ? '#556688' : '#446644'
   );
   new Chart(document.getElementById('scoreChart'), {
     type: 'bar',
