@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MON-03 // SEPI INDEX — NOMAD S.I.G.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root{
+    --void:#060606;
+    --panel:#0d0d0d;
+    --panel-alt:#131313;
+    --panel-raised:#171717;
+    --border:#242424;
+    --border-bright:#383838;
+    --hi:#e8e8e6;
+    --mid:#9c9c98;
+    --dim:#6a6a66;
+    --faint:#454542;
+
+    --sei:#6f93a6;
+    --sei-dim:#3d4d55;
+    --spi:#a68f5c;
+    --spi-dim:#554c34;
+    --ssp:#a3615c;
+    --ssp-dim:#553530;
+    --sepi:#c9c9c4;
+
+    --ok:#7a9478;
+    --warn:#a6935c;
+    --bad:#a35c5c;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--void); color:var(--hi); font-family:'JetBrains Mono',monospace;}
+  body{padding:0 0 60px 0;}
+
+  ::selection{background:var(--border-bright); color:var(--hi);}
+  ::-webkit-scrollbar{width:10px; height:10px;}
+  ::-webkit-scrollbar-track{background:var(--panel);}
+  ::-webkit-scrollbar-thumb{background:var(--border-bright); border-radius:0;}
+
+  .label{
+    font-family:'Oswald',sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:500;
+    color:var(--dim);
+    font-size:10.5px;
+  }
+
+  /* ===== HEADER ===== */
+  header{
+    border-bottom:1px solid var(--border);
+    background:linear-gradient(180deg, var(--panel-alt), var(--void));
+    padding:18px 28px 16px;
+  }
+  .header-top{
+    display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;
+  }
+  .brand-block{display:flex; flex-direction:column; gap:3px;}
+  .brand-eyebrow{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.28em;
+    font-size:11px; color:var(--dim); font-weight:500;
+  }
+  .brand-title{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.03em;
+    font-size:26px; font-weight:600; color:var(--hi); line-height:1.1;
+  }
+  .brand-sub{
+    font-size:11px; color:var(--mid); letter-spacing:.02em; margin-top:2px;
+  }
+  .header-meta{
+    display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap;
+  }
+  .meta-chip{
+    border:1px solid var(--border-bright); padding:6px 12px;
+    font-size:10.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--mid); font-family:'Oswald',sans-serif; font-weight:500;
+    display:flex; flex-direction:column; gap:2px; min-width:92px;
+  }
+  .meta-chip b{color:var(--hi); font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0; font-weight:600;}
+  .meta-chip.unclass{border-color:var(--faint); color:var(--dim);}
+  .meta-chip.clock b{color:var(--sepi); font-variant-numeric:tabular-nums;}
+
+  .subnav{
+    margin-top:14px; display:flex; gap:18px; flex-wrap:wrap; align-items:center;
+    font-size:10.5px; color:var(--faint); letter-spacing:.1em; text-transform:uppercase;
+    font-family:'Oswald',sans-serif;
+  }
+  .subnav span{color:var(--dim); border-bottom:1px solid transparent; padding-bottom:2px;}
+  .subnav span.active{color:var(--sepi); border-color:var(--sepi);}
+
+  main{max-width:1360px; margin:0 auto; padding:0 28px;}
+
+  /* ===== KPI STRIP ===== */
+  .kpi-strip{
+    display:grid; grid-template-columns:repeat(6,1fr); gap:1px;
+    background:var(--border); border:1px solid var(--border); margin-top:22px;
+  }
+  .kpi{
+    background:var(--panel); padding:16px 14px;
+    display:flex; flex-direction:column; gap:6px;
+  }
+  .kpi .label{font-size:9.5px;}
+  .kpi .value{font-size:24px; font-weight:700; color:var(--hi); letter-spacing:-.02em; font-variant-numeric:tabular-nums;}
+  .kpi .sub{font-size:10px; color:var(--mid);}
+  .kpi .value.accent-sei{color:var(--sei);}
+  .kpi .value.accent-spi{color:var(--spi);}
+  .kpi .value.accent-ssp{color:var(--ssp);}
+  .kpi .value.accent-sepi{color:var(--sepi);}
+
+  /* ===== SECTION HEADERS ===== */
+  .section-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    margin-top:34px; margin-bottom:12px; border-bottom:1px solid var(--border); padding-bottom:8px;
+  }
+  .section-title{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.12em;
+    font-size:13px; font-weight:600; color:var(--hi);
+  }
+  .section-title span{color:var(--dim); font-weight:400; margin-left:8px; letter-spacing:.05em;}
+  .section-note{font-size:10px; color:var(--faint); letter-spacing:.04em; text-transform:uppercase; font-family:'Oswald',sans-serif;}
+
+  /* ===== GAP ANALYSIS PANEL ===== */
+  .gap-panel{
+    border:1px solid var(--border); background:var(--panel); padding:18px 22px;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:26px;
+  }
+  .gap-narrative{font-size:11.5px; line-height:1.75; color:var(--mid);}
+  .gap-narrative b{color:var(--hi); font-weight:600;}
+  .gap-narrative .finding-tag{
+    display:inline-block; font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--void); background:var(--sepi); padding:2px 7px; margin-bottom:10px; font-weight:600;
+  }
+  .gap-bars{display:flex; flex-direction:column; gap:14px; justify-content:center;}
+  .gap-row{display:flex; flex-direction:column; gap:5px;}
+  .gap-row-label{display:flex; justify-content:space-between; font-size:10.5px; color:var(--mid); letter-spacing:.05em;}
+  .gap-row-label b{color:var(--hi);}
+  .gap-track{position:relative; height:10px; background:var(--panel-alt); border:1px solid var(--border);}
+  .gap-fill-us{position:absolute; top:0; left:0; height:100%; background:var(--faint);}
+  .gap-fill-cn{position:absolute; top:0; left:0; height:100%; opacity:.85;}
+  .gap-fill-cn.sei{background:var(--sei);}
+  .gap-fill-cn.spi{background:var(--spi);}
+  .gap-fill-cn.ssp{background:var(--ssp);}
+  .gap-delta{font-size:9.5px; color:var(--dim); letter-spacing:.06em;}
+
+  /* ===== CONTROLS ===== */
+  .controls{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .tier-filters{display:flex; gap:6px; flex-wrap:wrap;}
+  .chip{
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.08em;
+    font-size:10.5px; font-weight:500; color:var(--mid); background:var(--panel);
+    border:1px solid var(--border-bright); padding:6px 13px; cursor:pointer;
+    transition:all .12s ease; user-select:none;
+  }
+  .chip:hover{color:var(--hi); border-color:var(--mid);}
+  .chip.active{background:var(--panel-raised); color:var(--sepi); border-color:var(--sepi);}
+  .search-wrap{position:relative;}
+  .search-wrap input{
+    background:var(--panel); border:1px solid var(--border-bright); color:var(--hi);
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; padding:8px 12px 8px 30px;
+    width:220px; outline:none;
+  }
+  .search-wrap input:focus{border-color:var(--mid);}
+  .search-wrap input::placeholder{color:var(--faint);}
+  .search-wrap::before{
+    content:'⌕'; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    color:var(--faint); font-size:14px;
+  }
+
+  /* ===== SORT HEADER ===== */
+  .rank-header{
+    display:grid; grid-template-columns:38px 46px 1.5fr 90px 90px 90px 74px 60px 66px;
+    gap:12px; align-items:center; padding:8px 16px;
+    border-bottom:1px solid var(--border-bright);
+    font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.08em;
+    font-size:9.5px; color:var(--faint); font-weight:600;
+  }
+  .rank-header .sortable{cursor:pointer; user-select:none; display:flex; align-items:center; gap:4px;}
+  .rank-header .sortable:hover{color:var(--mid);}
+  .rank-header .sortable.active{color:var(--sepi);}
+  .rank-header .arrow{font-size:8px;}
+
+  /* ===== RANK LIST ===== */
+  .rank-list{border:1px solid var(--border); border-top:none;}
+  .rank-row{
+    display:grid; grid-template-columns:38px 46px 1.5fr 90px 90px 90px 74px 60px 66px;
+    gap:12px; align-items:center; padding:11px 16px;
+    border-bottom:1px solid var(--border); background:var(--panel);
+    transition:background .1s ease;
+  }
+  .rank-row:hover{background:var(--panel-alt);}
+  .rank-row:last-child{border-bottom:none;}
+  .rank-num{font-size:15px; font-weight:700; color:var(--faint); font-variant-numeric:tabular-nums;}
+  .rank-row.tier-1 .rank-num{color:var(--sepi);}
+
+  .iso-badge{
+    font-family:'Oswald',sans-serif; font-weight:600; font-size:11.5px; letter-spacing:.05em;
+    color:var(--mid); border:1px solid var(--border-bright); padding:3px 6px; text-align:center; width:fit-content;
+  }
+  .country-cell{display:flex; flex-direction:column; gap:2px; min-width:0;}
+  .country-name{font-size:12.5px; color:var(--hi); font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .country-note{font-size:9.5px; color:var(--faint); font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+
+  .pillar-cell{display:flex; flex-direction:column; gap:3px;}
+  .pillar-val{font-size:11.5px; color:var(--mid); font-variant-numeric:tabular-nums;}
+  .pillar-track{height:5px; background:var(--panel-alt); border:1px solid var(--border);}
+  .pillar-fill{height:100%;}
+  .pillar-fill.sei{background:var(--sei);}
+  .pillar-fill.spi{background:var(--spi);}
+  .pillar-fill.ssp{background:var(--ssp);}
+
+  .tier-badge{
+    font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:.06em; text-transform:uppercase;
+    padding:3px 6px; text-align:center; font-weight:600; width:fit-content;
+  }
+  .tier-badge.t1{color:var(--void); background:var(--sepi);}
+  .tier-badge.t2{color:var(--mid); border:1px solid var(--border-bright);}
+  .tier-badge.t3{color:var(--faint); border:1px solid var(--border);}
+
+  .sepi-cell{display:flex; flex-direction:column; align-items:flex-end; gap:1px;}
+  .sepi-score{font-size:19px; font-weight:700; color:var(--hi); font-variant-numeric:tabular-nums; letter-spacing:-.02em;}
+  .sepi-delta{font-size:9.5px; color:var(--faint);}
+
+  .conf-badge{
+    font-family:'Oswald',sans-serif; font-size:9px; letter-spacing:.05em; text-transform:uppercase;
+    padding:3px 6px; text-align:center; font-weight:600; width:fit-content; border:1px solid;
+  }
+  .conf-badge.high{color:var(--ok); border-color:var(--ok);}
+  .conf-badge.med{color:var(--warn); border-color:var(--warn);}
+  .conf-badge.low{color:var(--bad); border-color:var(--bad);}
+
+  .empty-state{padding:40px; text-align:center; color:var(--faint); font-size:11px; letter-spacing:.05em; text-transform:uppercase; font-family:'Oswald',sans-serif;}
+
+  /* ===== CHART PANEL ===== */
+  .chart-panel{
+    border:1px solid var(--border); background:var(--panel); padding:20px 22px 8px;
+  }
+  .chart-panel canvas{max-height:420px;}
+
+  /* ===== ANALYST STRIP ===== */
+  .analyst-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border);}
+  .analyst-card{background:var(--panel); padding:16px 18px; display:flex; flex-direction:column; gap:8px;}
+  .analyst-card .card-tag{
+    font-family:'Oswald',sans-serif; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; font-weight:600;
+  }
+  .analyst-card.summary .card-tag{color:var(--sepi);}
+  .analyst-card.pir .card-tag{color:var(--bad);}
+  .analyst-card.signal .card-tag{color:var(--spi);}
+  .analyst-card p{font-size:11px; line-height:1.65; color:var(--mid);}
+  .analyst-card .card-meta{display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;}
+  .analyst-card .card-meta span{
+    font-size:9px; border:1px solid var(--border-bright); padding:2px 6px; color:var(--dim);
+    font-family:'Oswald',sans-serif; letter-spacing:.05em; text-transform:uppercase;
+  }
+
+  /* ===== FOOTER ===== */
+  footer{
+    margin-top:40px; border-top:1px solid var(--border); padding-top:18px;
+    display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:28px;
+  }
+  .foot-block .label{margin-bottom:8px; display:block;}
+  .foot-block p, .foot-block li{font-size:10.5px; color:var(--dim); line-height:1.7;}
+  .foot-block ul{list-style:none;}
+  .foot-block li::before{content:'— '; color:var(--faint);}
+  .foot-block code{color:var(--mid); background:var(--panel-alt); padding:1px 4px;}
+  .flag-note{
+    margin-top:20px; border:1px solid var(--border-bright); background:var(--panel-alt);
+    padding:10px 14px; font-size:10px; color:var(--warn); line-height:1.6;
+  }
+  .flag-note b{color:var(--hi);}
+  .foot-bottom{
+    margin-top:24px; padding-top:14px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; font-size:9.5px; color:var(--faint);
+    letter-spacing:.05em; text-transform:uppercase; font-family:'Oswald',sans-serif;
+  }
+
+  @media (max-width:1000px){
+    .kpi-strip{grid-template-columns:repeat(3,1fr);}
+    .gap-panel{grid-template-columns:1fr;}
+    .analyst-grid{grid-template-columns:1fr;}
+    footer{grid-template-columns:1fr;}
+    .rank-header, .rank-row{grid-template-columns:30px 40px 1fr 60px 60px 60px 56px;}
+    .rank-header span:nth-child(8), .rank-header span:nth-child(9),
+    .rank-row .conf-badge, .rank-row .tier-badge{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="brand-block">
+      <div class="brand-eyebrow">NOMAD S.I.G. // MONITOR SUITE</div>
+      <div class="brand-title">MON-03 — SEPI INDEX</div>
+      <div class="brand-sub">Space Economic &amp; Political Influence — Composite Ranking, 23 Launch-Capable Nations</div>
+    </div>
+    <div class="header-meta">
+      <div class="meta-chip unclass"><span>CLASSIFICATION</span><b>UNCLASS</b></div>
+      <div class="meta-chip"><span>CYCLE</span><b id="cycleLabel">2025-04</b></div>
+      <div class="meta-chip"><span>CONFIDENCE MIX</span><b id="confMixLabel">—</b></div>
+      <div class="meta-chip clock"><span>UTC</span><b id="utcClock">--:--:--</b></div>
+    </div>
+  </div>
+  <div class="subnav">
+    <span class="active">SEPI RANKING</span>
+    <span>PILLAR GAP ANALYSIS</span>
+    <span>ANALYST NARRATIVE</span>
+    <span>METHODOLOGY</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- KPI STRIP -->
+  <div class="kpi-strip" id="kpiStrip"></div>
+
+  <!-- GAP ANALYSIS -->
+  <div class="section-head">
+    <div class="section-title">Pillar Gap Analysis <span>US — CHN Convergence Read</span></div>
+    <div class="section-note">Baseline 2025-04</div>
+  </div>
+  <div class="gap-panel">
+    <div class="gap-narrative" id="gapNarrative"></div>
+    <div class="gap-bars" id="gapBars"></div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="section-head">
+    <div class="section-title">SEPI Ranking <span>All Tracked Actors</span></div>
+    <div class="section-note" id="rowCountNote">23 ENTRIES</div>
+  </div>
+
+  <div class="controls">
+    <div class="tier-filters" id="tierFilters"></div>
+    <div class="search-wrap"><input type="text" id="searchBox" placeholder="FILTER BY COUNTRY OR ISO3"></div>
+  </div>
+
+  <div class="rank-header">
+    <span>#</span>
+    <span>ISO</span>
+    <span>ACTOR</span>
+    <span class="sortable" data-sort="sei_score">SEI <span class="arrow">▾</span></span>
+    <span class="sortable" data-sort="spi_score">SPI <span class="arrow">▾</span></span>
+    <span class="sortable" data-sort="ssp_score">SSP <span class="arrow">▾</span></span>
+    <span>TIER</span>
+    <span>CONF</span>
+    <span class="sortable active" data-sort="sepi_score">SEPI <span class="arrow">▾</span></span>
+  </div>
+  <div class="rank-list" id="rankList"></div>
+
+  <!-- CHART -->
+  <div class="section-head">
+    <div class="section-title">Composite Score Distribution <span>Top 15 Ranked</span></div>
+    <div class="section-note">SEI 30% / SPI 30% / SSP 40%</div>
+  </div>
+  <div class="chart-panel">
+    <canvas id="sepiChart"></canvas>
+  </div>
+
+  <!-- ANALYST NARRATIVE -->
+  <div class="section-head">
+    <div class="section-title">Analyst Narrative <span>2025-04 Cycle</span></div>
+    <div class="section-note">Source: SEPI Narrative Log</div>
+  </div>
+  <div class="analyst-grid">
+    <div class="analyst-card summary">
+      <div class="card-tag">Executive Summary</div>
+      <p>The April 2025 SEPI assessment reflects continued US dominance across all three pillars, with China narrowing the gap in Space Strategic Power following confirmed Shijian-series RPO activity. Japan recorded a notable SPI score increase following conclusion of three new bilateral space cooperation agreements with Indo-Pacific partners. Iranian SSP score remains low-confidence due to limited open-source visibility into the Safir follow-on program.</p>
+      <div class="card-meta"><span>Key Movers: JPN +1.8 SPI</span><span>PRK +2 SSP</span><span>UKR -1.5 Overall</span></div>
+    </div>
+    <div class="analyst-card pir">
+      <div class="card-tag">PIR-001 · Flagged</div>
+      <p>Japan's bilateral space agreement count crossed the 20-agreement threshold for the first time, driven by new MOUs with the Philippines, Malaysia, and Vietnam — a deliberate Indo-Pacific coalition-building posture consistent with JSDF SDA expansion objectives.</p>
+      <div class="card-meta"><span>JPN · SPI</span><span>HIGH SIG</span><span>Threshold 15 → Obs 20</span></div>
+    </div>
+    <div class="analyst-card signal">
+      <div class="card-tag">SIG-001 · Horizon</div>
+      <p>Open-source indicators suggest PLA SSF Shijian-series RPO activity may be approaching operational ASAT declaration. If confirmed, China's SSP tier upgrades from 3 to 4, producing a significant SEPI revision.</p>
+      <div class="card-meta"><span>CHN · SSP</span><span>NEAR TERM</span><span>IMPACT: CRITICAL</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="foot-block">
+      <span class="label">Composite Methodology</span>
+      <p><code>SEPI = (SEI × 0.30) + (SPI × 0.30) + (SSP × 0.40)</code></p>
+      <p style="margin-top:8px;">Pillar sub-indicators are pre-normalized (min-max, defined ceiling benchmarks) and pre-calculated in the source workbook prior to ingestion. This dashboard consumes finished pillar and composite scores — no scoring logic is recomputed client-side.</p>
+      <p style="margin-top:8px;">Tier bands: <b style="color:var(--sepi)">TIER I ≥ 50</b> · <b style="color:var(--mid)">TIER II 20–49.9</b> · <b style="color:var(--faint)">TIER III &lt; 20</b>, applied against composite SEPI score.</p>
+    </div>
+    <div class="foot-block">
+      <span class="label">Source Map</span>
+      <ul>
+        <li>CSIS Space Threat Assessment</li>
+        <li>SWF Global Counterspace Capabilities</li>
+        <li>BryceTech Orbital Launch Report</li>
+        <li>SIA State of the Satellite Industry</li>
+        <li>UCS Satellite Database</li>
+        <li>UNOOSA Registries</li>
+      </ul>
+    </div>
+    <div class="foot-block">
+      <span class="label">Confidence Legend</span>
+      <p><span class="conf-badge high" style="display:inline-block;">HIGH</span> — corroborated, multi-source</p>
+      <p style="margin-top:6px;"><span class="conf-badge med" style="display:inline-block;">MED</span> — single-source or estimated</p>
+      <p style="margin-top:6px;"><span class="conf-badge low" style="display:inline-block;">LOW</span> — limited visibility, classified, or conflict-affected</p>
+    </div>
+  </footer>
+
+  <div class="flag-note">
+    <b>Data Quality Flag:</b> the 2025-04 dataset carries both a "France (CNES)" entry and an "ESA/France" aggregate entry under ISO3 <code style="color:var(--warn)">FRA</code>. These are not yet reconciled — the ESA figure is a multilateral aggregate that overlaps with CNES's national program. Treat both rows as provisional until deconfliction; do not sum them into a single French national score.
+  </div>
+
+  <div class="foot-bottom">
+    <span>NOMAD S.I.G. // MON-03 // SEPI INDEX v1.0 — FIRST MODEL</span>
+    <span id="genTimestamp">GENERATED —</span>
+  </div>
+
+</main>
+
+<script>
+const DATA = [{"country": "United States", "iso3": "USA", "update_month": "2025-04", "sei_launch_mktshare": 35.0, "sei_space_budget_bn": 25.0, "sei_commercial_cos": 300, "sei_sat_revenue_bn": 120.0, "sei_foreign_contracts": 22, "sei_score": 85, "spi_governance_score": 9, "spi_bilateral_agreements": 45, "spi_client_states": 60, "spi_norm_activity": 9, "spi_multilateral": 9, "spi_score": 88, "ssp_asat_tier": 4, "ssp_isr_sats": 150, "ssp_counterspace_doctrine": 10, "ssp_pnt_independence": 3, "ssp_launch_surge": 10, "ssp_score": 92, "sepi_score": 88.6, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "China", "iso3": "CHN", "update_month": "2025-04", "sei_launch_mktshare": 28.0, "sei_space_budget_bn": 12.0, "sei_commercial_cos": 180, "sei_sat_revenue_bn": 45.0, "sei_foreign_contracts": 18, "sei_score": 75, "spi_governance_score": 7, "spi_bilateral_agreements": 30, "spi_client_states": 40, "spi_norm_activity": 8, "spi_multilateral": 7, "spi_score": 74, "ssp_asat_tier": 4, "ssp_isr_sats": 120, "ssp_counterspace_doctrine": 9, "ssp_pnt_independence": 3, "ssp_launch_surge": 9, "ssp_score": 88, "sepi_score": 80.0, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "Russia", "iso3": "RUS", "update_month": "2025-04", "sei_launch_mktshare": 12.0, "sei_space_budget_bn": 3.5, "sei_commercial_cos": 40, "sei_sat_revenue_bn": 8.0, "sei_foreign_contracts": 5, "sei_score": 48, "spi_governance_score": 5, "spi_bilateral_agreements": 20, "spi_client_states": 25, "spi_norm_activity": 6, "spi_multilateral": 5, "spi_score": 52, "ssp_asat_tier": 4, "ssp_isr_sats": 80, "ssp_counterspace_doctrine": 9, "ssp_pnt_independence": 3, "ssp_launch_surge": 7, "ssp_score": 80, "sepi_score": 62.0, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "India", "iso3": "IND", "update_month": "2025-04", "sei_launch_mktshare": 4.0, "sei_space_budget_bn": 2.5, "sei_commercial_cos": 80, "sei_sat_revenue_bn": 5.0, "sei_foreign_contracts": 4, "sei_score": 38, "spi_governance_score": 5, "spi_bilateral_agreements": 18, "spi_client_states": 15, "spi_norm_activity": 5, "spi_multilateral": 6, "spi_score": 48, "ssp_asat_tier": 2, "ssp_isr_sats": 20, "ssp_counterspace_doctrine": 5, "ssp_pnt_independence": 2, "ssp_launch_surge": 5, "ssp_score": 40, "sepi_score": 42.4, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Japan", "iso3": "JPN", "update_month": "2025-04", "sei_launch_mktshare": 3.0, "sei_space_budget_bn": 3.0, "sei_commercial_cos": 60, "sei_sat_revenue_bn": 12.0, "sei_foreign_contracts": 3, "sei_score": 42, "spi_governance_score": 6, "spi_bilateral_agreements": 20, "spi_client_states": 20, "spi_norm_activity": 6, "spi_multilateral": 7, "spi_score": 56, "ssp_asat_tier": 1, "ssp_isr_sats": 10, "ssp_counterspace_doctrine": 4, "ssp_pnt_independence": 2, "ssp_launch_surge": 5, "ssp_score": 32, "sepi_score": 43.2, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "France (CNES)", "iso3": "FRA", "update_month": "2025-04", "sei_launch_mktshare": 5.0, "sei_space_budget_bn": 2.8, "sei_commercial_cos": 70, "sei_sat_revenue_bn": 20.0, "sei_foreign_contracts": 8, "sei_score": 50, "spi_governance_score": 7, "spi_bilateral_agreements": 25, "spi_client_states": 30, "spi_norm_activity": 7, "spi_multilateral": 8, "spi_score": 68, "ssp_asat_tier": 2, "ssp_isr_sats": 15, "ssp_counterspace_doctrine": 5, "ssp_pnt_independence": 1, "ssp_launch_surge": 4, "ssp_score": 36, "sepi_score": 52.4, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "United Kingdom", "iso3": "GBR", "update_month": "2025-04", "sei_launch_mktshare": 1.0, "sei_space_budget_bn": 0.8, "sei_commercial_cos": 90, "sei_sat_revenue_bn": 10.0, "sei_foreign_contracts": 3, "sei_score": 30, "spi_governance_score": 6, "spi_bilateral_agreements": 20, "spi_client_states": 20, "spi_norm_activity": 6, "spi_multilateral": 7, "spi_score": 58, "ssp_asat_tier": 1, "ssp_isr_sats": 8, "ssp_counterspace_doctrine": 3, "ssp_pnt_independence": 1, "ssp_launch_surge": 3, "ssp_score": 28, "sepi_score": 39.0, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "South Korea", "iso3": "KOR", "update_month": "2025-04", "sei_launch_mktshare": 1.0, "sei_space_budget_bn": 0.7, "sei_commercial_cos": 50, "sei_sat_revenue_bn": 4.0, "sei_foreign_contracts": 2, "sei_score": 28, "spi_governance_score": 4, "spi_bilateral_agreements": 10, "spi_client_states": 8, "spi_norm_activity": 3, "spi_multilateral": 4, "spi_score": 34, "ssp_asat_tier": 1, "ssp_isr_sats": 5, "ssp_counterspace_doctrine": 3, "ssp_pnt_independence": 1, "ssp_launch_surge": 3, "ssp_score": 24, "sepi_score": 28.6, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Iran", "iso3": "IRN", "update_month": "2025-04", "sei_launch_mktshare": 0.5, "sei_space_budget_bn": 0.3, "sei_commercial_cos": 10, "sei_sat_revenue_bn": 0.5, "sei_foreign_contracts": 0, "sei_score": 12, "spi_governance_score": 2, "spi_bilateral_agreements": 5, "spi_client_states": 5, "spi_norm_activity": 3, "spi_multilateral": 1, "spi_score": 20, "ssp_asat_tier": 2, "ssp_isr_sats": 5, "ssp_counterspace_doctrine": 3, "ssp_pnt_independence": 1, "ssp_launch_surge": 2, "ssp_score": 24, "sepi_score": 18.8, "sepi_delta": 0, "confidence": "LOW", "notes": "Significant data uncertainty"}, {"country": "Israel", "iso3": "ISR", "update_month": "2025-04", "sei_launch_mktshare": 0.5, "sei_space_budget_bn": 0.5, "sei_commercial_cos": 30, "sei_sat_revenue_bn": 2.0, "sei_foreign_contracts": 2, "sei_score": 22, "spi_governance_score": 4, "spi_bilateral_agreements": 12, "spi_client_states": 10, "spi_norm_activity": 4, "spi_multilateral": 4, "spi_score": 40, "ssp_asat_tier": 2, "ssp_isr_sats": 8, "ssp_counterspace_doctrine": 5, "ssp_pnt_independence": 1, "ssp_launch_surge": 3, "ssp_score": 34, "sepi_score": 31.6, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Brazil", "iso3": "BRA", "update_month": "2025-04", "sei_launch_mktshare": 0.5, "sei_space_budget_bn": 0.2, "sei_commercial_cos": 15, "sei_sat_revenue_bn": 0.5, "sei_foreign_contracts": 1, "sei_score": 14, "spi_governance_score": 3, "spi_bilateral_agreements": 8, "spi_client_states": 5, "spi_norm_activity": 2, "spi_multilateral": 2, "spi_score": 22, "ssp_asat_tier": 0, "ssp_isr_sats": 2, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 2, "ssp_score": 12, "sepi_score": 16.2, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Australia", "iso3": "AUS", "update_month": "2025-04", "sei_launch_mktshare": 1.5, "sei_space_budget_bn": 0.5, "sei_commercial_cos": 40, "sei_sat_revenue_bn": 3.0, "sei_foreign_contracts": 3, "sei_score": 24, "spi_governance_score": 5, "spi_bilateral_agreements": 15, "spi_client_states": 12, "spi_norm_activity": 4, "spi_multilateral": 5, "spi_score": 42, "ssp_asat_tier": 0, "ssp_isr_sats": 3, "ssp_counterspace_doctrine": 2, "ssp_pnt_independence": 0, "ssp_launch_surge": 2, "ssp_score": 14, "sepi_score": 26.8, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Argentina", "iso3": "ARG", "update_month": "2025-04", "sei_launch_mktshare": 0.2, "sei_space_budget_bn": 0.15, "sei_commercial_cos": 8, "sei_sat_revenue_bn": 0.2, "sei_foreign_contracts": 0, "sei_score": 10, "spi_governance_score": 2, "spi_bilateral_agreements": 6, "spi_client_states": 3, "spi_norm_activity": 2, "spi_multilateral": 2, "spi_score": 18, "ssp_asat_tier": 0, "ssp_isr_sats": 1, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 1, "ssp_score": 8, "sepi_score": 12.2, "sepi_delta": 0, "confidence": "LOW", "notes": null}, {"country": "North Korea", "iso3": "PRK", "update_month": "2025-04", "sei_launch_mktshare": 0.3, "sei_space_budget_bn": 0.3, "sei_commercial_cos": 5, "sei_sat_revenue_bn": 0.0, "sei_foreign_contracts": 0, "sei_score": 8, "spi_governance_score": 1, "spi_bilateral_agreements": 2, "spi_client_states": 2, "spi_norm_activity": 1, "spi_multilateral": 0, "spi_score": 10, "ssp_asat_tier": 3, "ssp_isr_sats": 3, "ssp_counterspace_doctrine": 4, "ssp_pnt_independence": 1, "ssp_launch_surge": 3, "ssp_score": 32, "sepi_score": 17.0, "sepi_delta": 0, "confidence": "LOW", "notes": "Significant data uncertainty; classified program"}, {"country": "Canada", "iso3": "CAN", "update_month": "2025-04", "sei_launch_mktshare": 1.0, "sei_space_budget_bn": 0.6, "sei_commercial_cos": 50, "sei_sat_revenue_bn": 5.0, "sei_foreign_contracts": 2, "sei_score": 26, "spi_governance_score": 5, "spi_bilateral_agreements": 18, "spi_client_states": 15, "spi_norm_activity": 4, "spi_multilateral": 6, "spi_score": 46, "ssp_asat_tier": 0, "ssp_isr_sats": 5, "ssp_counterspace_doctrine": 2, "ssp_pnt_independence": 0, "ssp_launch_surge": 2, "ssp_score": 14, "sepi_score": 28.8, "sepi_delta": 0, "confidence": "HIGH", "notes": null}, {"country": "Italy", "iso3": "ITA", "update_month": "2025-04", "sei_launch_mktshare": 1.0, "sei_space_budget_bn": 0.4, "sei_commercial_cos": 30, "sei_sat_revenue_bn": 4.0, "sei_foreign_contracts": 2, "sei_score": 22, "spi_governance_score": 5, "spi_bilateral_agreements": 14, "spi_client_states": 12, "spi_norm_activity": 4, "spi_multilateral": 5, "spi_score": 42, "ssp_asat_tier": 1, "ssp_isr_sats": 5, "ssp_counterspace_doctrine": 3, "ssp_pnt_independence": 1, "ssp_launch_surge": 3, "ssp_score": 26, "sepi_score": 31.0, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Pakistan", "iso3": "PAK", "update_month": "2025-04", "sei_launch_mktshare": 0.1, "sei_space_budget_bn": 0.1, "sei_commercial_cos": 5, "sei_sat_revenue_bn": 0.1, "sei_foreign_contracts": 0, "sei_score": 6, "spi_governance_score": 1, "spi_bilateral_agreements": 4, "spi_client_states": 2, "spi_norm_activity": 1, "spi_multilateral": 1, "spi_score": 10, "ssp_asat_tier": 0, "ssp_isr_sats": 1, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 1, "ssp_score": 6, "sepi_score": 7.4, "sepi_delta": 0, "confidence": "LOW", "notes": null}, {"country": "Mexico", "iso3": "MEX", "update_month": "2025-04", "sei_launch_mktshare": 0.0, "sei_space_budget_bn": 0.1, "sei_commercial_cos": 10, "sei_sat_revenue_bn": 0.3, "sei_foreign_contracts": 0, "sei_score": 6, "spi_governance_score": 2, "spi_bilateral_agreements": 5, "spi_client_states": 3, "spi_norm_activity": 2, "spi_multilateral": 2, "spi_score": 18, "ssp_asat_tier": 0, "ssp_isr_sats": 0, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 1, "ssp_score": 4, "sepi_score": 9.4, "sepi_delta": 0, "confidence": "LOW", "notes": null}, {"country": "New Zealand", "iso3": "NZL", "update_month": "2025-04", "sei_launch_mktshare": 2.0, "sei_space_budget_bn": 0.1, "sei_commercial_cos": 15, "sei_sat_revenue_bn": 0.5, "sei_foreign_contracts": 3, "sei_score": 16, "spi_governance_score": 3, "spi_bilateral_agreements": 8, "spi_client_states": 6, "spi_norm_activity": 2, "spi_multilateral": 3, "spi_score": 24, "ssp_asat_tier": 0, "ssp_isr_sats": 2, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 1, "ssp_score": 8, "sepi_score": 16.4, "sepi_delta": 0, "confidence": "MED", "notes": "Rocket Lab primary driver"}, {"country": "Sweden", "iso3": "SWE", "update_month": "2025-04", "sei_launch_mktshare": 0.2, "sei_space_budget_bn": 0.2, "sei_commercial_cos": 20, "sei_sat_revenue_bn": 0.8, "sei_foreign_contracts": 1, "sei_score": 14, "spi_governance_score": 4, "spi_bilateral_agreements": 10, "spi_client_states": 8, "spi_norm_activity": 3, "spi_multilateral": 4, "spi_score": 36, "ssp_asat_tier": 0, "ssp_isr_sats": 2, "ssp_counterspace_doctrine": 2, "ssp_pnt_independence": 0, "ssp_launch_surge": 2, "ssp_score": 12, "sepi_score": 21.0, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "Ukraine", "iso3": "UKR", "update_month": "2025-04", "sei_launch_mktshare": 0.3, "sei_space_budget_bn": 0.1, "sei_commercial_cos": 10, "sei_sat_revenue_bn": 0.3, "sei_foreign_contracts": 0, "sei_score": 10, "spi_governance_score": 2, "spi_bilateral_agreements": 6, "spi_client_states": 4, "spi_norm_activity": 2, "spi_multilateral": 2, "spi_score": 20, "ssp_asat_tier": 1, "ssp_isr_sats": 3, "ssp_counterspace_doctrine": 3, "ssp_pnt_independence": 0, "ssp_launch_surge": 2, "ssp_score": 18, "sepi_score": 16.0, "sepi_delta": 0, "confidence": "LOW", "notes": "Ongoing conflict significantly impacts assessment"}, {"country": "Poland", "iso3": "POL", "update_month": "2025-04", "sei_launch_mktshare": 0.1, "sei_space_budget_bn": 0.1, "sei_commercial_cos": 15, "sei_sat_revenue_bn": 0.2, "sei_foreign_contracts": 0, "sei_score": 8, "spi_governance_score": 3, "spi_bilateral_agreements": 8, "spi_client_states": 5, "spi_norm_activity": 2, "spi_multilateral": 3, "spi_score": 26, "ssp_asat_tier": 0, "ssp_isr_sats": 1, "ssp_counterspace_doctrine": 1, "ssp_pnt_independence": 0, "ssp_launch_surge": 1, "ssp_score": 6, "sepi_score": 13.6, "sepi_delta": 0, "confidence": "MED", "notes": null}, {"country": "ESA/France", "iso3": "FRA", "update_month": "2025-04", "sei_launch_mktshare": 5.0, "sei_space_budget_bn": 8.0, "sei_commercial_cos": 100, "sei_sat_revenue_bn": 25.0, "sei_foreign_contracts": 10, "sei_score": 55, "spi_governance_score": 8, "spi_bilateral_agreements": 35, "spi_client_states": 35, "spi_norm_activity": 8, "spi_multilateral": 9, "spi_score": 78, "ssp_asat_tier": 1, "ssp_isr_sats": 10, "ssp_counterspace_doctrine": 4, "ssp_pnt_independence": 1, "ssp_launch_surge": 4, "ssp_score": 28, "sepi_score": 54.4, "sepi_delta": 0, "confidence": "HIGH", "notes": "ESA aggregate; note overlap with CNES"}];
+
+const CYCLE = "2025-04";
+
+function tierOf(score){
+  if(score >= 50) return 1;
+  if(score >= 20) return 2;
+  return 3;
+}
+function tierLabel(t){ return t===1 ? "TIER I" : t===2 ? "TIER II" : "TIER III"; }
+
+// ===== Clock =====
+function tick(){
+  const now = new Date();
+  const h = String(now.getUTCHours()).padStart(2,'0');
+  const m = String(now.getUTCMinutes()).padStart(2,'0');
+  const s = String(now.getUTCSeconds()).padStart(2,'0');
+  document.getElementById('utcClock').textContent = `${h}:${m}:${s}`;
+}
+tick(); setInterval(tick, 1000);
+document.getElementById('genTimestamp').textContent = 'GENERATED ' + new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC';
+document.getElementById('cycleLabel').textContent = CYCLE;
+
+// ===== Confidence mix =====
+(function(){
+  const counts = {HIGH:0, MED:0, LOW:0};
+  DATA.forEach(d => counts[d.confidence]++);
+  document.getElementById('confMixLabel').textContent = `${counts.HIGH}H / ${counts.MED}M / ${counts.LOW}L`;
+})();
+
+// ===== KPI STRIP =====
+(function(){
+  const sepiScores = DATA.map(d=>d.sepi_score);
+  const mean = (sepiScores.reduce((a,b)=>a+b,0)/sepiScores.length);
+  const top = DATA.reduce((a,b)=> a.sepi_score > b.sepi_score ? a : b);
+  const seiLeader = DATA.reduce((a,b)=> a.sei_score > b.sei_score ? a : b);
+  const spiLeader = DATA.reduce((a,b)=> a.spi_score > b.spi_score ? a : b);
+  const sspLeader = DATA.reduce((a,b)=> a.ssp_score > b.ssp_score ? a : b);
+  const tierCounts = {1:0,2:0,3:0};
+  DATA.forEach(d=> tierCounts[tierOf(d.sepi_score)]++);
+
+  const kpis = [
+    {label:'ACTORS TRACKED', value: DATA.length, sub:'Launch-capable nations', cls:''},
+    {label:'GLOBAL MEAN SEPI', value: mean.toFixed(1), sub:`Range ${Math.min(...sepiScores).toFixed(1)}–${Math.max(...sepiScores).toFixed(1)}`, cls:'accent-sepi'},
+    {label:'TOP RANKED', value: top.iso3, sub:`SEPI ${top.sepi_score.toFixed(1)}`, cls:'accent-sepi'},
+    {label:'SEI LEADER', value: seiLeader.iso3, sub:`Score ${seiLeader.sei_score}`, cls:'accent-sei'},
+    {label:'SPI LEADER', value: spiLeader.iso3, sub:`Score ${spiLeader.spi_score}`, cls:'accent-spi'},
+    {label:'SSP LEADER', value: sspLeader.iso3, sub:`Score ${sspLeader.ssp_score}`, cls:'accent-ssp'},
+  ];
+  document.getElementById('kpiStrip').innerHTML = kpis.map(k=>`
+    <div class="kpi">
+      <div class="label">${k.label}</div>
+      <div class="value ${k.cls}">${k.value}</div>
+      <div class="sub">${k.sub}</div>
+    </div>`).join('');
+})();
+
+// ===== GAP ANALYSIS (US vs CHN) =====
+(function(){
+  const us = DATA.find(d=>d.iso3==='USA');
+  const cn = DATA.find(d=>d.iso3==='CHN');
+  const pillars = [
+    {key:'sei_score', label:'SEI — Economic Influence', cls:'sei'},
+    {key:'spi_score', label:'SPI — Political Influence', cls:'spi'},
+    {key:'ssp_score', label:'SSP — Strategic Power', cls:'ssp'},
+  ];
+  const gaps = pillars.map(p => ({...p, gap: us[p.key]-cn[p.key], us: us[p.key], cn: cn[p.key]}));
+  const minGap = gaps.reduce((a,b)=> a.gap < b.gap ? a : b);
+
+  document.getElementById('gapNarrative').innerHTML = `
+    <span class="finding-tag">Key Finding</span>
+    <div>The <b>${minGap.label.split('—')[0].trim()}</b> gap between the United States and China is the narrowest of the three pillars at <b>${minGap.gap} pts</b> (US ${minGap.us} / CHN ${minGap.cn}), against wider gaps in economic (${gaps[0].gap} pts) and political influence (${gaps[1].gap} pts). This indicates China's convergence is proceeding faster in hard space power — ASAT tier, ISR constellation size, counterspace doctrine maturity — than in the commercial and diplomatic dimensions of the index. The composite SEPI gap of <b>${(us.sepi_score-cn.sepi_score).toFixed(1)} pts</b> understates how close the strategic-power sub-score has become.</div>
+  `;
+
+  document.getElementById('gapBars').innerHTML = gaps.map(g=>`
+    <div class="gap-row">
+      <div class="gap-row-label"><span>${g.label}</span><b>${g.gap} pt gap</b></div>
+      <div class="gap-track">
+        <div class="gap-fill-us" style="width:${g.us}%"></div>
+        <div class="gap-fill-cn ${g.cls}" style="width:${g.cn}%"></div>
+      </div>
+      <div class="gap-delta">US ${g.us} · <span style="color:var(--${g.cls})">CHN ${g.cn}</span></div>
+    </div>
+  `).join('');
+})();
+
+// ===== RANKING TABLE =====
+let sortKey = 'sepi_score';
+let sortDir = -1;
+let activeTier = 'ALL';
+let searchTerm = '';
+
+function renderList(){
+  let rows = DATA.filter(d=>{
+    const t = tierOf(d.sepi_score);
+    const tierOk = activeTier === 'ALL' || t === Number(activeTier);
+    const searchOk = !searchTerm || d.country.toLowerCase().includes(searchTerm) || d.iso3.toLowerCase().includes(searchTerm);
+    return tierOk && searchOk;
+  });
+  rows = rows.slice().sort((a,b)=> (a[sortKey]-b[sortKey]) * sortDir);
+
+  document.getElementById('rowCountNote').textContent = `${rows.length} ENTRIES`;
+
+  if(rows.length === 0){
+    document.getElementById('rankList').innerHTML = `<div class="empty-state">NO MATCHING ACTORS</div>`;
+    return;
+  }
+
+  document.getElementById('rankList').innerHTML = rows.map((d,i)=>{
+    const t = tierOf(d.sepi_score);
+    const tierClass = t===1 ? 't1' : t===2 ? 't2' : 't3';
+    const confClass = d.confidence.toLowerCase();
+    const rank = (sortKey==='sepi_score' && sortDir===-1) ? i+1 : DATA.slice().sort((a,b)=>b.sepi_score-a.sepi_score).indexOf(d)+1;
+    return `
+    <div class="rank-row ${t===1?'tier-1':''}">
+      <div class="rank-num">${rank}</div>
+      <div class="iso-badge">${d.iso3}</div>
+      <div class="country-cell">
+        <div class="country-name">${d.country}</div>
+        <div class="country-note">${d.notes ? d.notes : ''}</div>
+      </div>
+      <div class="pillar-cell">
+        <div class="pillar-val">${d.sei_score}</div>
+        <div class="pillar-track"><div class="pillar-fill sei" style="width:${d.sei_score}%"></div></div>
+      </div>
+      <div class="pillar-cell">
+        <div class="pillar-val">${d.spi_score}</div>
+        <div class="pillar-track"><div class="pillar-fill spi" style="width:${d.spi_score}%"></div></div>
+      </div>
+      <div class="pillar-cell">
+        <div class="pillar-val">${d.ssp_score}</div>
+        <div class="pillar-track"><div class="pillar-fill ssp" style="width:${d.ssp_score}%"></div></div>
+      </div>
+      <div class="tier-badge ${tierClass}">${tierLabel(t)}</div>
+      <div class="conf-badge ${confClass}">${d.confidence}</div>
+      <div class="sepi-cell">
+        <div class="sepi-score">${d.sepi_score.toFixed(1)}</div>
+        <div class="sepi-delta">Δ ${d.sepi_delta >= 0 ? '+' : ''}${d.sepi_delta}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+document.querySelectorAll('.rank-header .sortable').forEach(el=>{
+  el.addEventListener('click', ()=>{
+    const key = el.dataset.sort;
+    if(sortKey === key){ sortDir *= -1; } else { sortKey = key; sortDir = -1; }
+    document.querySelectorAll('.rank-header .sortable').forEach(s=>s.classList.remove('active'));
+    el.classList.add('active');
+    el.querySelector('.arrow').textContent = sortDir === -1 ? '▾' : '▴';
+    renderList();
+  });
+});
+
+document.getElementById('searchBox').addEventListener('input', (e)=>{
+  searchTerm = e.target.value.toLowerCase().trim();
+  renderList();
+});
+
+const tierFilterDefs = [
+  {key:'ALL', label:'ALL'},
+  {key:'1', label:'TIER I'},
+  {key:'2', label:'TIER II'},
+  {key:'3', label:'TIER III'},
+];
+document.getElementById('tierFilters').innerHTML = tierFilterDefs.map(t=>
+  `<div class="chip ${t.key==='ALL'?'active':''}" data-tier="${t.key}">${t.label}</div>`
+).join('');
+document.querySelectorAll('.chip').forEach(chip=>{
+  chip.addEventListener('click', ()=>{
+    document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    activeTier = chip.dataset.tier;
+    renderList();
+  });
+});
+
+renderList();
+
+// ===== CHART =====
+(function(){
+  const top15 = DATA.slice().sort((a,b)=>b.sepi_score-a.sepi_score).slice(0,15);
+  const ctx = document.getElementById('sepiChart').getContext('2d');
+  new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: top15.map(d=>d.iso3),
+      datasets:[
+        {label:'SEI', data: top15.map(d=>d.sei_score*0.30), backgroundColor:'#6f93a6', stack:'s'},
+        {label:'SPI', data: top15.map(d=>d.spi_score*0.30), backgroundColor:'#a68f5c', stack:'s'},
+        {label:'SSP', data: top15.map(d=>d.ssp_score*0.40), backgroundColor:'#a3615c', stack:'s'},
+      ]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:true,
+      aspectRatio:2.6,
+      plugins:{
+        legend:{ labels:{ color:'#9c9c98', font:{family:'JetBrains Mono', size:10.5} } },
+        tooltip:{
+          backgroundColor:'#131313', borderColor:'#383838', borderWidth:1,
+          titleFont:{family:'JetBrains Mono'}, bodyFont:{family:'JetBrains Mono'},
+          callbacks:{
+            label: (item)=> `${item.dataset.label}: ${item.raw.toFixed(1)} (weighted)`
+          }
+        }
+      },
+      scales:{
+        x:{ stacked:true, ticks:{ color:'#9c9c98', font:{family:'JetBrains Mono', size:10.5} }, grid:{ color:'#242424' } },
+        y:{ stacked:true, ticks:{ color:'#6a6a66', font:{family:'JetBrains Mono', size:10} }, grid:{ color:'#242424' }, title:{display:true, text:'Weighted Composite SEPI', color:'#6a6a66', font:{family:'Oswald', size:10.5}} }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
