@@ -23,6 +23,9 @@
     --green: #336633;
     --blue: #334466;
     --glow: rgba(180,180,180,0.08);
+    --caliber: #c9793f;
+    --caliber-bright: #e0a05c;
+    --caliber-dim: #5a3c22;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -48,7 +51,7 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(ellipse at 20% 50%, rgba(150,150,150,0.04) 0%, transparent 60%);
+    background: radial-gradient(ellipse at 20% 50%, rgba(201,121,63,0.06) 0%, transparent 60%);
     pointer-events: none;
   }
   .header-logo {
@@ -125,7 +128,7 @@
   .nav-tab:hover { color: var(--silver-light); }
   .nav-tab.active {
     color: var(--silver-bright);
-    border-bottom-color: var(--silver);
+    border-bottom-color: var(--caliber);
   }
 
   /* CONTENT */
@@ -760,8 +763,8 @@
     gap: 8px;
   }
   .ai-analyze-btn:hover:not(:disabled) {
-    border-color: #444;
-    color: var(--silver-light);
+    border-color: var(--caliber);
+    color: var(--caliber-bright);
     background: #111;
   }
   .ai-analyze-btn:disabled { opacity: 0.4; cursor: not-allowed; }
@@ -825,6 +828,17 @@
     .outcomes-grid { grid-template-columns: 1fr; }
     .cone-timeline { grid-template-columns: 100px 1fr 1fr; }
   }
+
+  .sundial-breadcrumb {
+    background:#050505; border-bottom:1px solid #1a1a1a; padding:10px 40px;
+    display:flex; align-items:center; gap:10px; font-size:10px; letter-spacing:2px;
+    text-transform:uppercase; font-family:'Segoe UI',Arial,sans-serif;
+  }
+  .sundial-breadcrumb a { color:#888; text-decoration:none; }
+  .sundial-breadcrumb a:hover { color:var(--caliber-bright); }
+  .sundial-breadcrumb span.sep { color:#333; }
+  .sundial-breadcrumb span.here { color:#c8c8c8; }
+
   @media (max-width: 700px) {
     .content { padding: 20px 16px; }
     .header { padding: 20px 16px; }
@@ -836,10 +850,14 @@
 </head>
 <body>
 
+<div class="sundial-breadcrumb">
+  <a href="index.html">SUNDIAL</a><span class="sep">/</span><a href="reports.html">Analysis Reports</a><span class="sep">/</span><span class="here">JSDF Monitor</span>
+</div>
+
 <!-- HEADER -->
 <div class="header">
   <div class="header-logo">
-    <!-- Inline SVG globe/compass logo matching NOMAD S.I.G. aesthetic -->
+    <!-- Inline SVG globe/compass logo matching SUNDIAL aesthetic -->
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="globeGrad" cx="45%" cy="40%">
@@ -871,7 +889,7 @@
     </svg>
   </div>
   <div class="header-text">
-    <div class="header-firm">Nomad S.I.G. — Strategic Intelligence Group</div>
+    <div class="header-firm">SUNDIAL — Strategic Intelligence Group</div>
     <div class="header-title">Japan Self-Defense Force</div>
     <div class="header-subtitle">Strategic Intelligence Assessment · April 2026</div>
   </div>
@@ -1365,7 +1383,7 @@
 </div>
 </div>
 <div class="footer">
-  <div>NOMAD S.I.G.</div>
+  <div>SUNDIAL</div>
   <div class="footer-center">JSDF MILITARY DEVELOPMENT MONITOR · MAY 2026<br>Sources: JSDF_Base_STEMPLES.xlsx · JSDF_April_Cone_of_Plausibility.xlsx</div>
   <div>est. APR 07 2026</div>
 </div>
@@ -1438,7 +1456,7 @@ async function fetchDevelopments() {
     </div>`;
 
   try {
-    const prompt = `You are an intelligence analyst at Nomad S.I.G. monitoring the Japan Self-Defense Force (JSDF).
+    const prompt = `You are an intelligence analyst at Sundial monitoring the Japan Self-Defense Force (JSDF).
 
 Generate a structured JSON array of exactly 15 recent, realistic JSDF developments as of April 2026. These should reflect the actual strategic context: Japan's Defense Buildup Program, JJOC establishment, Type 25 SSM/HVGP deployment, JS Chokai Tomahawk integration, SHIELD drone program, GCAP, nuclear submarine debate, ACD Law offensive cyber, 15th Division/SOB formation, Mageshima Island construction, Sino-Japanese tensions, US alliance restructuring, and fiscal pressures.
 
@@ -1589,7 +1607,7 @@ async function runAnalysis() {
         max_tokens: 1000,
         messages: [{
           role: 'user',
-          content: `You are a senior intelligence analyst at Nomad S.I.G. specializing in JSDF transformation and Indo-Pacific security. Based on the following recent JSDF developments, provide a concise 3-paragraph analytical assessment (no headers, no bullets) covering: (1) the most significant operational or strategic milestone and why it matters, (2) the dominant trend or pattern across these developments, and (3) one key risk or watch item decision-makers should prioritize. Be direct, specific, and analytical. Use precise military/policy terminology. Max 180 words total.\n\nDevelopments:\n${snippet}`
+          content: `You are a senior intelligence analyst at Sundial specializing in JSDF transformation and Indo-Pacific security. Based on the following recent JSDF developments, provide a concise 3-paragraph analytical assessment (no headers, no bullets) covering: (1) the most significant operational or strategic milestone and why it matters, (2) the dominant trend or pattern across these developments, and (3) one key risk or watch item decision-makers should prioritize. Be direct, specific, and analytical. Use precise military/policy terminology. Max 180 words total.\n\nDevelopments:\n${snippet}`
         }]
       })
     });
